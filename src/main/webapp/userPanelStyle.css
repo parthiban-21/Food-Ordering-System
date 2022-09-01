@@ -125,14 +125,49 @@ td{
 	margin-bottom: 20px;
 	}
 .menu{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
 	margin:12px;
 	border: 1px solid rgba(0, 0, 0, .5);
 	border-radius: 20px;
 	height: 350px; width: 280px;
 }
+.menu img{
+	position:absolute;
+	z-index:0;
+	opacity:.3;
+	height: 280px; width: 280px;
+}
+.grad{
+	background-image: linear-gradient(to top, rgba(0,0,0,.1), rgba(255,255,255,0));
+	height: 350px; width: 280px;
+	border-radius: 20px;
+}
+.menu:hover{
+	background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(255,255,255,0));
+	height: 350px; width: 280px;
+	border-radius: 20px;
+}
+.menu-name{
+	z-index:1;
+	margin-top:92%;
+	letter-spacing:3px;
+	font-family: fantasy;
+	font-size: 25px;
+	margin-bottom: 3px;
+	margin-left: 15px;
+}
+.menu-price{
+	z-index:1;
+	font-size: 18px;
+	font-family: monospace;
+	font-weight: bold;
+}
 .menu-section{
-	display: flex;
-	flex-direction:row;
+	display: grid;
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	justify-content: center;
 }
@@ -171,6 +206,9 @@ td{
 	font: bold;
 }
 .formbottom{
+	display:flex;
+	flex-direction:row;
+	justify-content: center;
 	align-items: center;
 }
 .total{
@@ -207,7 +245,33 @@ td{
 	align-items: center;
 	justify-content: center;
 }
-
+.add-btn{
+	z-index:1;
+	background-color: rgba(180, 235, 52,.5);
+	border: 1px solid;
+	border-radius: 40px;
+	width: 100px; height:40px;
+	font-size: 17px;
+	font-weight:bold;
+	font-family: monospace;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.add-btn:hover{
+	background-color: rgba(180, 235, 52,.9);
+}
+.delete-btn{
+	z-index:1;
+	background-color: rgba(255, 99, 71, 0.5);
+	border: 1px solid;
+	border-radius: 40px;
+	width: 40px; height:40px;
+	font-size: 30px;
+	font-family: monospace;
+}
+.delete-btn:hover{
+	background-color: rgba(255, 0, 0, 0.7);
+}
 .button{
 	background-color: rgba(255, 99, 71, 0.4);
 	padding: 6px;

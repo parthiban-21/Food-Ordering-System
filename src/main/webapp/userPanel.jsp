@@ -19,7 +19,7 @@
 	<a href="#logout">Logout</a>
 	</div>
 </div>
-<!--  <div class="vLine"> </div> -->
+
 <div class="split right">
 <div class="table">
 <label class="formhead">Your Cart</label>
@@ -56,13 +56,39 @@
 <label class="formhead">Dishes</label>
 <div class="menu-section">
 	<div class="menu">
-		
+		<img alt="Menu-Img" src="/images/default-menu-img.png">
+		<div class="grad">
+		<p class="menu-name">Name</p>
+		<div class="formbottom">
+		<p class="menu-price">Rs.100 /- </p>
+		<button class="add-btn">Add Cart</button>
+		<button class="delete-btn">-</button>
+		</div>
+		</div>
 	</div>
+	
 	<div class="menu">
-		
+		<img alt="Menu-Img" src="/images/default-menu-img.png">
+		<div class="grad">
+		<p class="menu-name">Name</p>
+		<div class="formbottom">
+		<p class="menu-price">Rs.100 /- </p>
+		<button class="add-btn">Add Cart</button>
+		<button class="delete-btn">-</button>
+		</div>
+		</div>
 	</div>
+	
 	<div class="menu">
-		
+		<img alt="Menu-Img" src="/images/default-menu-img.png">
+		<div class="grad">
+		<p class="menu-name">Name</p>
+		<div class="formbottom">
+		<p class="menu-price">Rs.100 /- </p>
+		<button class="add-btn">Add Cart</button>
+		<button class="delete-btn">-</button>
+		</div>
+		</div>
 	</div>
 </div>
 </div>

@@ -11,22 +11,28 @@
 <body>
 <div class="split left">
 	<div class="form">
-	<form name="signupForm" action="#createAccount">
+	<form name="signupForm" action="signUp" method="post">
 		<label class="formhead">Create an Account</label>
+		
 		<label class="lable">Name</label>
-		<input type="text" name="username" class="input" placeholder="Enter Your Name"
+		<input type="text" name="name" class="input" placeholder="Enter Your Name"
 		pattern="[A-Za-z]+" title="Invalied Name" required><br>
+		
 		<label class="lable">Mobile Number</label>
 		<input type="text" name="mobileno" class="input" placeholder="Enter Your Mobile Number"
 		pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" required><br>
+		
 		<label class="lable">Address</label>
 		<input type="text" name="address" class="input" placeholder="Enter Your Address"
-		pattern="[A-Za-z]+" title="Invalied Address" required><br>
+		pattern="[A-Za-z0-9]+" title="Invalied Address" required><br>
+		
 		<label class="lable">Email ID</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
+		
 		<label class="lable">Password</label>
 		<input type="password" name="password" class="input" placeholder="Set Password" 
 		pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Invalied Password" required><br>
+		
 		<div class="formbottom">
 			<input type="submit" class="button" value="Create Account">
 			<label class="opac">If you already have account <a href="login.jsp">Login</a></label>

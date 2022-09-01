@@ -21,7 +21,7 @@
 
 <div class="Split right">
 <div class="form">
-	<form action="login">
+	<form action="signIn" method="post">
 		<label class="formhead">Foody Login</label>
 		<label class="lable">Email ID</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>

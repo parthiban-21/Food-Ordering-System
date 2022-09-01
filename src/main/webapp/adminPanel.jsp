@@ -16,7 +16,7 @@
 	<div class="header-right">
 	<a href="Orders.jsp">Orders</a>
 	<a href="#edit">Edit</a>
-	<a href="logout">Logout</a>
+	<a href="login.jsp">Logout</a>
 	</div>
 </div>
 <div class="split left">
