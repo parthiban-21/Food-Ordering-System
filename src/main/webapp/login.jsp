@@ -21,7 +21,7 @@
 
 <div class="Split right">
 <div class="form">
-	<form action="signIn" method="post">
+	<form action="signIn" method="get">
 		<label class="formhead">Foody Login</label>
 		<label class="lable">Email ID</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
@@ -31,6 +31,7 @@
 		<label class="opac">Or</label>
 	</form>
 	<a href="signup.jsp"><button class="button">Sign-Up</button></a>
+	<label class="errorLabel">${errMsg}</label>
 </div>
 </div>
 </body>

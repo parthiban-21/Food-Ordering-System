@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.Date" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,15 @@
 <title>User Profile</title>
 </head>
 <body>
+
 <div class="header">
 	<img class = "logo" alt="Logo" src="images/logo.png">
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
-	<a href="userPanel.jsp">Home</a>
+	<a href="/user">Home</a>
 	<a href="userOrders.jsp">Order</a>
 	<a class="active" href="userProfile.jsp">Profile</a>
-	<a href="logout">Logout</a>
+	<a href="/logout">Logout</a>
 	</div>
 </div>
 
@@ -24,7 +26,7 @@
 <div class="table">
 <label class="formhead">Your Details</label>
 <img class="profile" alt="Profile Picture" src="images/profilePicture.png">
-<table>
+<table> 
 		<tr>
 			<th>Name: </th>
 			<td>${userName}</td>
@@ -41,26 +43,32 @@
 			<th>Address: </th>
 			<td>${address}</td>
 		</tr>
+
 	</table>
 	</div>
 </div>
 
 <div class="Split right">
 <div class="form">
-	<form action="">
+	<form action="updateInfo" method="post">
 	<label class="formhead">Update Your Information</label>
+	
 	<label class="lable">Name</label>
-	<input type="text" name="username" class="input" placeholder="${userName}" required><br>
+	<input type="text" name="name" class="input" placeholder="Enter New Name" value="${userName}"
+	pattern="[A-Za-z]+" title="Invalied Name" required><br>
+	
 	<label class="lable">Mobile Number</label>
-	<input type="text" name="mobileno" class="input" placeholder="${mobileNo}" required><br>
+	<input type="text" name="mobileno" class="input" placeholder="Enter New Mobile Number" value="${mobileNo}"
+	pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" required><br>
+	
 	<label class="lable">Address</label>
-	<input type="text" name="address" class="input" placeholder="${address}" required><br>
-	<label class="lable">Email ID</label>
-	<input type="email" name="emailID" class="input" placeholder="${emailID}" required><br>
+	<input type="text" name="address" class="input" placeholder="Enter New Address" value="${address}"
+	pattern="[A-Za-z0-9]+" title="Invalied Address" required><br>
+	
 	<label class="lable">Password</label>
 	<input type="password" name="password" class="input" placeholder="Confirm Password" required><br>
 	<div class="formbottom">
-	<input type="submit" class="button" value="Update">
+	<input type="submit" class="button" value="Update Info">
 	</div>
 	</form>
 </div>

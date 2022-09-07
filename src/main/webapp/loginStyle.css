@@ -126,6 +126,15 @@ form{
 	font-family:monospace;
 	align-items: flex-start;
 }
+.errorLabel{
+	font-size: 16px;
+	font-weight:bold;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	font-family:monospace;
+	align-items: flex-start;
+	color: rgba(190, 0, 0,1);
+}
 .opac{
 	opacity: 70%;
 	font-family: monospace;

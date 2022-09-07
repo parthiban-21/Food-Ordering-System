@@ -14,10 +14,10 @@
 	<img class = "logo" alt="Logo" src="images/logo.png">
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
-	<a href="userPanel.jsp">Home</a>
+	<a href="/user">Home</a>
 	<a class="active" href="userOrders.jsp">Order</a>
 	<a href="userProfile.jsp">Profile</a>
-	<a href="logout">Logout</a>
+	<a href="/logout">Logout</a>
 	</div>
 </div>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,20 @@
 <title>Foody Order</title>
 </head>
 <body>
+<c:forEach var="info" items="${userDetails}">
+	<c:set var="userName" scope="session" value="${info.name}"/>
+	<c:set var="emailID" scope="session" value="${info.mailID}"/>
+	<c:set var="mobileNo" scope="session" value="${info.phoneNo}"/>
+	<c:set var="address" scope="session" value="${info.address}"/>
+</c:forEach>
 <div class="header">
 	<img class = "logo" alt="Logo" src="images/logo.png">
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
-	<a class="active" href="userPanel.jsp">Home</a>
+	<a class="active" href="/user">Home</a>
 	<a href="userOrders.jsp">Order</a>
 	<a href="userProfile.jsp">Profile</a>
-	<a href="#logout">Logout</a>
+	<a href="/logout">Logout</a>
 	</div>
 </div>
 
@@ -36,14 +43,19 @@
 			<th>Price</th>
 			
 		</tr>
+		<c:forEach var="cart" items="${cartDetails}">
+		<c:set var="total" value="${0}"/>
+		<c:set var="temp" value="${cart.totalPrice}"/>
+		<c:set var="grandTotal" value="${temp+grandTotal+total}"/>
 		<tr>
-			<td>Dosa</td>
-			<td>2</td>
-			<td>40.0</td>
+			<td>${cart.menuName}</td>
+			<td>${cart.quantity}</td>
+			<td>${cart.totalPrice}</td>
 		</tr>
+		</c:forEach>
 	</table>
 	<br>
-	<label class="total">Total Price: ${totalPrice}</label>
+	<label class="total">Total Price : Rs. ${grandTotal} /-</label>
 	</div>
 	<div class="formbottom">
 	<a href="#confirmOrder"><button class="confirmBtn">Confirm Order</button></a>
@@ -55,41 +67,21 @@
 <div class="form">
 <label class="formhead">Dishes</label>
 <div class="menu-section">
-	<div class="menu">
-		<img alt="Menu-Img" src="/images/default-menu-img.png">
-		<div class="grad">
-		<p class="menu-name">Name</p>
-		<div class="formbottom">
-		<p class="menu-price">Rs.100 /- </p>
-		<button class="add-btn">Add Cart</button>
-		<button class="delete-btn">-</button>
+	<c:forEach var="menu" items="${menuDetails}">
+		<div class="menu">
+
+
+			<img alt="Menu-Img" src="data:image/jpg;base64,${menu.imgPath}">
+			<div class="grad">
+				<p class="menu-name">${menu.menuName}</p>
+				<div class="formbottom">
+					<p class="menu-price">Rs.${menu.menuPrice} /-</p>
+					<button class="add-btn">Add Cart</button>
+					<button class="delete-btn">-</button>
+				</div>
+			</div>
 		</div>
-		</div>
-	</div>
-	
-	<div class="menu">
-		<img alt="Menu-Img" src="/images/default-menu-img.png">
-		<div class="grad">
-		<p class="menu-name">Name</p>
-		<div class="formbottom">
-		<p class="menu-price">Rs.100 /- </p>
-		<button class="add-btn">Add Cart</button>
-		<button class="delete-btn">-</button>
-		</div>
-		</div>
-	</div>
-	
-	<div class="menu">
-		<img alt="Menu-Img" src="/images/default-menu-img.png">
-		<div class="grad">
-		<p class="menu-name">Name</p>
-		<div class="formbottom">
-		<p class="menu-price">Rs.100 /- </p>
-		<button class="add-btn">Add Cart</button>
-		<button class="delete-btn">-</button>
-		</div>
-		</div>
-	</div>
+	</c:forEach>
 </div>
 </div>
 </div>

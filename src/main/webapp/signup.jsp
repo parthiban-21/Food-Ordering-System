@@ -27,6 +27,7 @@
 		pattern="[A-Za-z0-9]+" title="Invalied Address" required><br>
 		
 		<label class="lable">Email ID</label>
+		<label class="errorLabel">${errMsg}</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
 		
 		<label class="lable">Password</label>
