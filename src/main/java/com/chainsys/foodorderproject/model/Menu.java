@@ -6,43 +6,42 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class Menu {
-	private int menuID;
-	private String menuName;
-	private String menuType;
-	private float menuPrice;
-	private  byte[] menuIMG;
+	private int itemID;
+	private String itemName;
+	private String itemType;
+	private float itemPrice;
+	private  byte[] itemIMG;
 	private String imgPath;
 	
-	public int getMenuID() {
-		return menuID;
+	public int getItemID() {
+		return itemID;
 	}
-	public void setMenuID(int menuID) {
-		this.menuID = menuID;
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
 	}
-	public String getMenuName() {
-		return menuName;
+	public String getItemName() {
+		return itemName;
 	}
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
-	public String getMenuType() {
-		return menuType;
+	public String getItemType() {
+		return itemType;
 	}
-	public void setMenuType(String menuType) {
-		this.menuType = menuType;
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
-	public float getMenuPrice() {
-		return menuPrice;
+	public float getItemPrice() {
+		return itemPrice;
 	}
-	public void setMenuPrice(float menuPrice) {
-		this.menuPrice = menuPrice;
+	public void setItemPrice(float itemPrice) {
+		this.itemPrice = itemPrice;
 	}
-	
-	public byte[] getMenuIMG() {
-		return menuIMG;
+	public byte[] getItemIMG() {
+		return itemIMG;
 	}
-	public void setMenuIMG(byte[] menuIMG) {
-		this.menuIMG = menuIMG;
+	public void setItemIMG(byte[] itemIMG) {
+		this.itemIMG = itemIMG;
 	}
 	public String getImgPath() {
 		return imgPath;
@@ -52,7 +51,7 @@ public class Menu {
 	}
 	@Override
 	public String toString() {
-		return "Menu [menuID=" + menuID + ", menuName=" + menuName + ", menuType=" + menuType + ", menuPrice="
-				+ menuPrice + ", menuIMG=" + Arrays.toString(menuIMG) + ", imgPath=" + imgPath + "]";
+		return "Menu [itemID=" + itemID + ", itemName=" + itemName + ", itemType=" + itemType + ", itemPrice="
+				+ itemPrice + ", itemIMG=" + Arrays.toString(itemIMG) + ", imgPath=" + imgPath + "]";
 	}
 }

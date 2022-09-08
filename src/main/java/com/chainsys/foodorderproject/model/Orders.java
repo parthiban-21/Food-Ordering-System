@@ -1,24 +1,33 @@
 package com.chainsys.foodorderproject.model;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class Cart {
-	private int userID;
+public class Orders {
+	private String orderID;
+	private int customerID;
 	private int itemID;
 	private String itemName;
 	private int quantity;
+	private float perPrice;
 	private String orderType;
+	private Date orderDate;
 	private String orderStatus;
-	private float unitPrice;
 	private float totalPrice;
-	private String orderID;
 	
-	public int getUserID() {
-		return userID;
+	public String getOrderID() {
+		return orderID;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
+	}
+	public int getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 	public int getItemID() {
 		return itemID;
@@ -38,6 +47,12 @@ public class Cart {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public float getPerPrice() {
+		return perPrice;
+	}
+	public void setPerPrice(float perPrice) {
+		this.perPrice = perPrice;
+	}
 	public String getOrderType() {
 		return orderType;
 	}
@@ -50,28 +65,23 @@ public class Cart {
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public float getUnitPrice() {
-		return unitPrice;
-	}
-	public void setUnitPrice(float unitPrice) {
-		this.unitPrice = unitPrice;
-	}
 	public float getTotalPrice() {
 		return totalPrice;
 	}
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public String getOrderID() {
-		return orderID;
+	public Date getOrderDate() {
+		return orderDate;
 	}
-	public void setOrderID(String orderID) {
-		this.orderID = orderID;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
 	@Override
 	public String toString() {
-		return "Cart [userID=" + userID + ", menuID=" + itemID + ", menuName=" + itemName + ", quantity=" + quantity
-				+ ", orderType=" + orderType + ", orderStatus=" + orderStatus + ", perPrice=" + unitPrice
-				+ ", totalPrice=" + totalPrice + ", orderID=" + orderID + "]";
+		return "Orders [orderID=" + orderID + ", customerID=" + customerID + ", itemID=" + itemID + ", itemName="
+				+ itemName + ", quantity=" + quantity + ", perPrice=" + perPrice + ", orderType=" + orderType
+				+ ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", totalPrice=" + totalPrice + "]";
 	}
+	
 }

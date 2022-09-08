@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.foodorderproject.dao.MainDAO;
+import com.chainsys.foodorderproject.dao.AdminDAO;
+import com.chainsys.foodorderproject.dao.UserDAO;
 import com.chainsys.foodorderproject.dto.MainDto;
 import com.chainsys.foodorderproject.dto.MenuDto;
 import com.chainsys.foodorderproject.dto.SignUpDto;
@@ -16,45 +17,48 @@ import com.chainsys.foodorderproject.model.User;
 public class MainService {
 	
 	@Autowired
-	User u;
+	User user;
 	
 	@Autowired
-	Menu m;
+	Menu menu;
 	
 	@Autowired
-	MainDAO dao;
+	UserDAO userDAO;
 	
-	public void signUpService(SignUpDto dto) {
-		u.setName(dto.getUserName());
-		u.setMailID(dto.getUserMailID());
-		u.setPhoneNo(dto.getUserPhoneNo());
-		u.setAddress(dto.getUserAddress());
-		u.setPassword(dto.getUserPassword());
-		dao.createUser(u);
+	@Autowired
+	AdminDAO adminDAO;
+	
+	public void signUpService(SignUpDto signUpDto) {
+		user.setName(signUpDto.getUserName());
+		user.setMailID(signUpDto.getUserMailID());
+		user.setPhoneNo(signUpDto.getUserPhoneNo());
+		user.setAddress(signUpDto.getUserAddress());
+		user.setPassword(signUpDto.getUserPassword());
+		userDAO.createUser(user);
 	}
 	
-	public void updateService(List<User> info,MainDto dto) {
-		if(info.get(0).getPassword().equals(dto.getUserPassword())) {
-			u.setName(dto.getUserName());
-			u.setPhoneNo(dto.getUserPhoneNo());
-			u.setAddress(dto.getUserAddress());
+	public void updateService(List<User> info,MainDto mainDto) {
+		if(info.get(0).getPassword().equals(mainDto.getUserPassword())) {
+			user.setName(mainDto.getUserName());
+			user.setPhoneNo(mainDto.getUserPhoneNo());
+			user.setAddress(mainDto.getUserAddress());
 			
 			//To Filter In DB
-			u.setMailID(info.get(0).getMailID());
-			u.setPassword(info.get(0).getPassword());
+			user.setMailID(info.get(0).getMailID());
+			user.setPassword(info.get(0).getPassword());
 			
-			dao.updateUserDetails(u);
+			userDAO.updateUserDetails(user);
 		}
 		else {
 			System.out.println("error");
 		}
 	}
 	
-	public void menuService(MenuDto mdto) {
-		m.setMenuName(mdto.getMenuName());
-		m.setMenuType(mdto.getMenuType());
-		m.setMenuPrice(mdto.getMenuPrice());
-		m.setMenuIMG(mdto.getMenuImg());
-		dao.addMenu(m);
+	public void menuService(MenuDto menuDto) {
+		menu.setItemName(menuDto.getMenuName());
+		menu.setItemType(menuDto.getMenuType());
+		menu.setItemPrice(menuDto.getMenuPrice());
+		menu.setItemIMG(menuDto.getMenuImg());
+		adminDAO.addItem(menu);
 	}
 }

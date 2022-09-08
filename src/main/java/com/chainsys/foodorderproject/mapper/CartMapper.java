@@ -13,26 +13,26 @@ public class CartMapper implements RowMapper<Cart> {
 
 	@Override
 	public Cart mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Cart c = new Cart();
+		Cart cart = new Cart();
 		int userID = rs.getInt("CUSTOMER_ID");
-		int menuID = rs.getInt("MENU_ID");
-		String menuName = rs.getString("MENU_NAME");
+		int menuID = rs.getInt("ITEM_ID");
+		String menuName = rs.getString("ITEM_NAME");
 		int quantity = rs.getInt("QUANTITY");
 		String orderType = rs.getString("ORDER_TYPE");
 		String orderStatus = rs.getString("ORDER_STATUS");
-		float perPrice = rs.getFloat("PRICE");
+		float unitPrice = rs.getFloat("ITEM_PRICE");
 		float totalPrice = rs.getFloat("TOTAL");
 		
-		c.setUserID(userID);
-		c.setMenuID(menuID);
-		c.setMenuName(menuName);
-		c.setQuantity(quantity);
-		c.setOrderType(orderType);
-		c.setOrderStatus(orderStatus);
-		c.setPerPrice(perPrice);
-		c.setTotalPrice(totalPrice);
+		cart.setUserID(userID);
+		cart.setItemID(menuID);
+		cart.setItemName(menuName);
+		cart.setQuantity(quantity);
+		cart.setOrderType(orderType);
+		cart.setOrderStatus(orderStatus);
+		cart.setUnitPrice(unitPrice);
+		cart.setTotalPrice(totalPrice);
 		
-		return c;
+		return cart;
 	}
 
 }

@@ -1,31 +1,35 @@
 package com.chainsys.foodorderproject.validation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.chainsys.foodorderproject.mapper.MailIDMapper;
+import com.chainsys.foodorderproject.model.User;
 
 @Repository
 public class UserValidation {
 	
 	@Autowired
-	JdbcTemplate jdbc;
+	JdbcTemplate jdbcTemplate;
 
 	//Check Mail-ID Exist or Not
 	public Boolean checkMailID(String mailID) {
-		String query = "select CUSTOMER_ID from CUSTOMER where MAIL_ID=?";
-		Object[] val = {mailID};
-		int userID=0;
+		String getMailIDQuery = "select MAIL_ID from CUSTOMER where MAIL_ID=?";
+		Object[] value = {mailID};
 		try {
-			userID = jdbc.queryForObject(query,int.class,val);
-			if(userID!=0)
-				return false;
+			List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
+			if(id.size()==0) {
+				return true;//Required
+			}
 			else {
-				System.out.println("True");
-				return true;
+				return false;
 			}
 		}
 		catch(Exception e) {
-			return true;
+			return false;//Required
 		}
 	}
 }

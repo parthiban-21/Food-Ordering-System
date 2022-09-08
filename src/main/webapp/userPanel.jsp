@@ -10,7 +10,9 @@
 <title>Foody Order</title>
 </head>
 <body>
+<script ></script>
 <c:forEach var="info" items="${userDetails}">
+	<c:set var="id" scope="session" value="${info.id}"/>
 	<c:set var="userName" scope="session" value="${info.name}"/>
 	<c:set var="emailID" scope="session" value="${info.mailID}"/>
 	<c:set var="mobileNo" scope="session" value="${info.phoneNo}"/>
@@ -21,7 +23,7 @@
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
 	<a class="active" href="/user">Home</a>
-	<a href="userOrders.jsp">Order</a>
+	<a href="/orders?userID=${id}">Order</a>
 	<a href="userProfile.jsp">Profile</a>
 	<a href="/logout">Logout</a>
 	</div>
@@ -30,16 +32,12 @@
 <div class="split right">
 <div class="table">
 <label class="formhead">Your Cart</label>
-<select>
-		<option value="dineIn">Dine-In</option>
-		<option value="pickUp">Pick-Up</option>
-		<option value="delivery">Delivery</option>
-</select>
+
 
 <table>
 		<tr>
 			<th>Name</th>
-			<th>Quantity</th>
+			<th colspan="3">Quantity</th>
 			<th>Price</th>
 			
 		</tr>
@@ -48,8 +46,10 @@
 		<c:set var="temp" value="${cart.totalPrice}"/>
 		<c:set var="grandTotal" value="${temp+grandTotal+total}"/>
 		<tr>
-			<td>${cart.menuName}</td>
+			<td>${cart.itemName}</td>
+			<td><a href="/incQuantity?itemID=${cart.itemID}&itemQuantity=${cart.quantity}"><button class = "qty">+</button></a></td>
 			<td>${cart.quantity}</td>
+			<td><a href="/decQuantity?itemID=${cart.itemID}&itemQuantity=${cart.quantity}"><button class = "qty">-</button></a></td>
 			<td>${cart.totalPrice}</td>
 		</tr>
 		</c:forEach>
@@ -58,8 +58,14 @@
 	<label class="total">Total Price : Rs. ${grandTotal} /-</label>
 	</div>
 	<div class="formbottom">
-	<a href="#confirmOrder"><button class="confirmBtn">Confirm Order</button></a>
-	<a href="#cancelOrder"><button class="button">Cancel Order</button></a>
+	<form action="/confirmOrder">
+		<select name="orderType">
+			<option value="pickUp">Pick-Up</option>
+			<option value="delivery" selected="selected">Delivery</option>
+		</select>
+		<input type="submit" class="confirmBtn" value="Confirm Order">
+	</form>
+		<a href="/dropAll?userID=${id}"><button class="cancelBtn">Cancel</button></a>
 	</div>
 </div>
 
@@ -69,15 +75,13 @@
 <div class="menu-section">
 	<c:forEach var="menu" items="${menuDetails}">
 		<div class="menu">
-
-
 			<img alt="Menu-Img" src="data:image/jpg;base64,${menu.imgPath}">
 			<div class="grad">
-				<p class="menu-name">${menu.menuName}</p>
-				<div class="formbottom">
-					<p class="menu-price">Rs.${menu.menuPrice} /-</p>
-					<button class="add-btn">Add Cart</button>
-					<button class="delete-btn">-</button>
+				<p class="menu-name">${menu.itemName}</p>
+				<div class="menubottom">
+					<p class="menu-price">Rs.${menu.itemPrice} /-</p>
+					<a href="/addToCart?userID=${id}&itemID=${menu.itemID}"><button class="add-btn" onclick='this.disabled = true;'>Add to Cart</button></a>
+					<!-- <button class="delete-btn">-</button> -->
 				</div>
 			</div>
 		</div>

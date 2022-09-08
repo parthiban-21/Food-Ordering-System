@@ -32,11 +32,11 @@
 		<c:set var="allMenu" scope="session" value="${menuDetails}"/>
 		<c:forEach var="menu" items="${allMenu}">
 		<tr>
-			<td>#${menu.menuID}</td>
-			<td>${menu.menuName}</td>
-			<td>${menu.menuType}</td>
-			<td>Rs.${menu.menuPrice}</td>
-			<td><a href="/delete?id=${menu.menuID}">Delete</a></td>
+			<td>#${menu.itemID}</td>
+			<td>${menu.itemName}</td>
+			<td>${menu.itemType}</td>
+			<td>Rs.${menu.itemPrice}</td>
+			<td><a href="/delete?id=${menu.itemID}">Delete</a></td>
 		</tr>
 		</c:forEach>
 	</table>

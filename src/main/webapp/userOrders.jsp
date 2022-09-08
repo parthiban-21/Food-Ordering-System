@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +32,15 @@
 			<th>Total Price</th>
 			<th>Order Status</th>
 		</tr>
-		<tr>
-			<td>#${orderID}</td>
-			<td>${orderDate}</td>
-			<td>${orderType}</td>
-			<td>Rs. ${totalPrice}</td>
-			<td>${orderStatus}</td>
-		</tr>
+		<c:forEach var="orders" items="${orderDetails}">
+			<tr>
+				<td>#${orders.orderID}</td>
+				<td>${orders.orderDate}</td>
+				<td>${orders.orderType}</td>
+				<td>Rs. ${orders.totalPrice}</td>
+				<td>${orders.orderStatus}</td>
+			</tr>
+		</c:forEach>
 	</table>
 </div>
 

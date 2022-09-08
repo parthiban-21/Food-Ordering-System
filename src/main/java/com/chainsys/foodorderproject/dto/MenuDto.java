@@ -1,48 +1,51 @@
 package com.chainsys.foodorderproject.dto;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MenuDto {
-	private int menuID;
-	private String menuName;
-	private String menuType;
-	private float menuPrice;
-	private byte[] menuImg;
+	private int itemID;
+	private String itemName;
+	private String itemType;
+	private float itemPrice;
+	private byte[] itemImage;
+	
 	public int getMenuID() {
-		return menuID;
+		return itemID;
 	}
-	public void setMenuID(int menuID) {
-		this.menuID = menuID;
+	public void setMenuID(int itemID) {
+		this.itemID = itemID;
 	}
 	public String getMenuName() {
-		return menuName;
+		return itemName;
 	}
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
+	public void setMenuName(String itemName) {
+		this.itemName = itemName;
 	}
 	public String getMenuType() {
-		return menuType;
+		return itemType;
 	}
-	public void setMenuType(String menuType) {
-		this.menuType = menuType;
+	public void setMenuType(String itemType) {
+		this.itemType = itemType;
 	}
 	public float getMenuPrice() {
-		return menuPrice;
+		return itemPrice;
 	}
-	public void setMenuPrice(float menuPrice) {
-		this.menuPrice = menuPrice;
+	public void setMenuPrice(float itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 	
 	public byte[] getMenuImg() {
-		return menuImg;
+		return itemImage;
 	}
-	public void setMenuImg(byte[] menuImg) {
-		this.menuImg = menuImg;
+	public void setMenuImg(byte[] itemImage) {
+		this.itemImage = itemImage;
 	}
 	@Override
 	public String toString() {
-		return "MenuDto [menuID=" + menuID + ", menuName=" + menuName + ", menuType=" + menuType + ", menuPrice="
-				+ menuPrice + "]";
+		return "MenuDto [itemID=" + itemID + ", itemName=" + itemName + ", itemType=" + itemType + ", itemPrice="
+				+ itemPrice + ", itemImage=" + Arrays.toString(itemImage) + "]";
 	}
 }

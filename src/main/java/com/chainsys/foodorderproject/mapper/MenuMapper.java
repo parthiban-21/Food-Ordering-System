@@ -16,18 +16,18 @@ public class MenuMapper implements RowMapper<Menu> {
 	public Menu mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Menu m = new Menu();
 		
-		int menuID = rs.getInt("MENU_ID");
-		String menuName = rs.getString("MENU_NAME");
-		String menuType = rs.getString("MENU_TYPE");
-		float menuPrice = rs.getFloat("PRICE");
-		byte[] images = rs.getBytes("MENU_IMG");
-        String base64Image = Base64.getEncoder().encodeToString(images);
+		int itemID = rs.getInt("ITEM_ID");
+		String itemName = rs.getString("ITEM_NAME");
+		String itemType = rs.getString("ITEM_TYPE");
+		float itemPrice = rs.getFloat("ITEM_PRICE");
+		byte[] itemimages = rs.getBytes("ITEM_IMG");
+        String base64Image = Base64.getEncoder().encodeToString(itemimages);
 		
-		m.setMenuID(menuID);
-		m.setMenuName(menuName);
-		m.setMenuType(menuType);
-		m.setMenuPrice(menuPrice);
-		m.setMenuIMG(images);
+		m.setItemID(itemID);
+		m.setItemName(itemName);
+		m.setItemType(itemType);
+		m.setItemPrice(itemPrice);
+		m.setItemIMG(itemimages);
 		m.setImgPath(base64Image);
 		
 		return m;

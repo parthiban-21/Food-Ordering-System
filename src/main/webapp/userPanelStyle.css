@@ -13,9 +13,9 @@ a:hover{
 }
 select{
 	padding: 0.5rem;
-	margin-bottom:30px;
+	margin-bottom:5px;
 	margin-top: 5px;
-	width: 350px;
+	width: 145px;
 	height:40px;
 	font-size: 15px;
 	font-family:monospace;
@@ -151,7 +151,7 @@ td{
 	border-radius: 20px;
 }
 .menu-name{
-	z-index:1;
+	z-index:2;
 	margin-top:92%;
 	letter-spacing:3px;
 	font-family: fantasy;
@@ -160,10 +160,11 @@ td{
 	margin-left: 15px;
 }
 .menu-price{
-	z-index:1;
+	z-index:2;
 	font-size: 18px;
 	font-family: monospace;
 	font-weight: bold;
+	margin-left: 15px;
 }
 .menu-section{
 	display: grid;
@@ -211,6 +212,12 @@ td{
 	justify-content: center;
 	align-items: center;
 }
+.menubottom{
+	display:flex;
+	flex-direction:row;
+	justify-content: flex-start;
+	align-items: center;
+}
 .total{
 	display: flex;
 	flex-direction:column;
@@ -245,20 +252,29 @@ td{
 	align-items: center;
 	justify-content: center;
 }
+.qty{
+	border-radius: 100%;
+	width:25px;height:25px;
+	border: .11px solid rgba(0,0,0,.5);
+	background-color:  rgba(255,255,255,1);
+}
+.qty:hover{
+	border: .11px solid rgba(255,0,0,1);
+}
 .add-btn{
-	z-index:1;
-	background-color: rgba(180, 235, 52,.5);
+	z-index:2;
+	background-color: rgba(180, 235, 52,1);
 	border: 1px solid;
 	border-radius: 40px;
-	width: 100px; height:40px;
+	width: 120px; height:40px;
 	font-size: 17px;
 	font-weight:bold;
 	font-family: monospace;
-	margin-left: 5px;
+	margin-left: 40px;
 	margin-right: 5px;
 }
 .add-btn:hover{
-	background-color: rgba(180, 235, 52,.9);
+	background-color: rgba(180, 235, 52,1);
 }
 .delete-btn{
 	z-index:1;
@@ -290,11 +306,24 @@ td{
 	padding: 6px;
 	border: 2.5px solid;
 	border-radius: 5px;
-	width: 180px;
+	width: 145px;
 	margin: 10px;
 	font-size: 15px;
 	font-family: monospace;
 }
 .confirmBtn:hover {
 	background-color: rgba(180, 235, 52,1);
+}
+.cancelBtn{
+	background-color: rgba(255, 99, 71, 0.4);
+	padding: 6px;
+	border: 2.5px solid;
+	border-radius: 5px;
+	width: auto;
+	margin: 0px;
+	font-size: 15px;
+	font-family: monospace;
+}
+.cancelBtn:hover {
+	background-color: rgba(255, 100, 71, 0.7);
 }
