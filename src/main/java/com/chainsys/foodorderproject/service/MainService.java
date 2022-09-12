@@ -61,4 +61,10 @@ public class MainService {
 		menu.setItemIMG(menuDto.getMenuImg());
 		adminDAO.addItem(menu);
 	}
+	public void editItemService(int itemID,MenuDto menuDto) {
+		menu.setItemName(menuDto.getMenuName());
+		menu.setItemType(menuDto.getMenuType());
+		menu.setItemPrice(menuDto.getMenuPrice());
+		adminDAO.editItem(itemID,menu);
+	}
 }

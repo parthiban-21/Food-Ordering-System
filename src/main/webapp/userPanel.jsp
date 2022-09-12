@@ -10,7 +10,6 @@
 <title>Foody Order</title>
 </head>
 <body>
-<script ></script>
 <c:forEach var="info" items="${userDetails}">
 	<c:set var="id" scope="session" value="${info.id}"/>
 	<c:set var="userName" scope="session" value="${info.name}"/>
@@ -23,7 +22,7 @@
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
 	<a class="active" href="/user">Home</a>
-	<a href="/orders?userID=${id}">Order</a>
+	<a href="/orders">Order</a>
 	<a href="userProfile.jsp">Profile</a>
 	<a href="/logout">Logout</a>
 	</div>
@@ -72,6 +71,10 @@
 <div class="Split left">
 <div class="form">
 <label class="formhead">Dishes</label>
+<form action="/searchItem">
+	<input type="search" name="itemName">
+	<input type="submit">
+</form>
 <div class="menu-section">
 	<c:forEach var="menu" items="${menuDetails}">
 		<div class="menu">

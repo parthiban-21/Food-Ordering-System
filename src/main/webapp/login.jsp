@@ -26,7 +26,10 @@
 		<label class="lable">Email ID</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
 		<label class="lable">Password</label>
-		<input type="password" name="password" class="input" placeholder="Enter Your Password" required><br>
+		<input type="password" name="password" id = "showPassword" class="input" placeholder="Enter Your Password" required><br>
+		<div>
+		<input type="checkbox" onclick="myFunction()">Show Password
+		</div>
 		<input type="submit" class="button" value="Sign-In">
 		<label class="opac">Or</label>
 	</form>
@@ -34,5 +37,15 @@
 	<label class="errorLabel">${errMsg}</label>
 </div>
 </div>
+<script type="text/javascript">
+function myFunction() {
+	var x = document.getElementById("showPassword");
+	if (x.type === "password") {
+		x.type = "text";
+	} else {
+		x.type = "password";
+	}
+}
+</script>
 </body>
 </html>

@@ -21,15 +21,42 @@
 	<a href="/logout">Logout</a>
 	</div>
 </div>
-
-<div class="tab">
+<div class="split right">
+	<div id="order-details" class="form">
+	<table class="table-details">
+		<tr>
+		<th>Name</th>
+		<th>Quantity</th>
+		<th>Price</th>
+		<th>Total</th>
+		</tr>
+		<c:forEach var="OrderItems" items="${orderItemDetails}">
+		<c:set var="total" value="${0}"/>
+		<c:set var="temp" value="${OrderItems.totalPrice}"/>
+		<c:set var="grandTotal" value="${temp+grandTotal+total}"/>
+			<tr>
+			<td>${OrderItems.itemName}</td>
+			<td>${OrderItems.quantity}</td>
+			<td>${OrderItems.unitPrice}</td>
+			<td>${OrderItems.totalPrice}</td>
+			</tr>
+		</c:forEach>
+		<tr>
+		<td colspan="3">Total Price</td>
+		<td>Rs: ${grandTotal}</td>
+		</tr>
+	</table>
+	
+	</div>
+</div>
+<div class="Split left">
+		<div class="tab" id="tab">
 	<label class="formhead">Your Orders</label>
-	<table>
+	<table class="order-table">
 		<tr>
 			<th>Order ID</th>
 			<th>Order Date</th>
 			<th>Order Type</th>
-			<th>Total Price</th>
 			<th>Order Status</th>
 		</tr>
 		<c:forEach var="orders" items="${orderDetails}">
@@ -37,12 +64,28 @@
 				<td>#${orders.orderID}</td>
 				<td>${orders.orderDate}</td>
 				<td>${orders.orderType}</td>
-				<td>Rs. ${orders.totalPrice}</td>
 				<td>${orders.orderStatus}</td>
-			</tr>
+				<td><a href="/orderItems?orderID=${orders.orderID}"><button class="viewBtn">View Order</button></a></td>
+				<td><a href="/cancelOrder?orderID=${orders.orderID}"><button class="button">Cancel Order</button></a></td>
+				</tr>
 		</c:forEach>
 	</table>
 </div>
-
+</div>
+<script type="text/javascript">
+	
+	function myFunction(d) {
+		d.preventDefault();
+		var x = document.getElementById("order-details");
+		var y = document.getElementById("tab");
+		if (x.style.display === "none") {
+			x.style.display = "flex";
+			y.style.width = "75%";
+		} else {
+			x.style.display = "none";
+			y.style.width = "96.6%";
+		}
+	}
+</script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.chainsys.foodorderproject.mapper.CartMapper;
 import com.chainsys.foodorderproject.mapper.MenuMapper;
 import com.chainsys.foodorderproject.mapper.OrderIDMapper;
+import com.chainsys.foodorderproject.mapper.OrderItemMapper;
 import com.chainsys.foodorderproject.mapper.OrderMapper;
 import com.chainsys.foodorderproject.mapper.ConfirmedOrderMapper;
 import com.chainsys.foodorderproject.mapper.UserMapper;
@@ -81,6 +82,15 @@ public class UserDAO {
 		String getMenuQuery = "select * from MENU where ITEM_TYPE=? or ITEM_TYPE=?";
 		String time = getTime();
 		Object[] values = {time,"snacks"};
+		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
+		return menuDetails;
+	}
+	
+	//Gets Item Details By Name & Time
+	public List<Menu> getMenuDetails(String itemName){
+		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_NAME=? and (ITEM_TYPE=? or ITEM_TYPE=?)";
+		String time = getTime();
+		Object[] values = {itemName,time,"snacks"};
 		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 		return menuDetails;
 	}
@@ -213,5 +223,21 @@ public class UserDAO {
 		Object[] id = {userID};
 		List<Orders> userOrderDetails = jdbcTemplate.query(getUserOrderQuery,new OrderMapper(), id);
 		return userOrderDetails;
+	}
+	
+	//Get User Order Details
+	public List<Cart> getOrderItemDetails(String orderID){
+		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
+		Object[] id = {orderID};
+		List<Cart> userOrderItems = jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
+		System.out.println(userOrderItems);
+		return userOrderItems;
+	}
+	
+	//Cancel Order
+	public void cancelOrder(String orderID) {
+		String cancelOrder = "delete from orders where order_id=?";
+		Object[] id = {orderID};
+		jdbcTemplate.update(cancelOrder,id);
 	}
 }

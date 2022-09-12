@@ -15,14 +15,44 @@
 	<img class = "logo" alt="Logo" src="images/logo.png">
 	<label>Foody | Hello, Admin</label>
 	<div class="header-right">
-	<a class="active" href="#adminPanel">Home</a>
-	<a href="orders.jsp">Orders</a>
+	<a class="active" href="/admin">Home</a>
+	<a href="/adminOrders">Orders</a>
 	<a href="login.jsp">Logout</a>
 	</div>
 </div>
 <div class="split left">
 <div class="table">
-<table>
+<div>
+	<label class="menu-lable">Item-ID</label>
+	<label class="menu-lable">Item Name</label>
+	<label class="menu-lable">Item Type</label>
+	<label class="menu-lable">Item Price</label><br>
+	<!-- <table>
+	<tr>
+		<th>Item-ID</th>
+		<th>Item Name</th>
+		<th class="item-type">Item Type</th>
+		<th>Item Price</th>
+		<th></th>
+	</tr>
+	</table> -->
+</div>
+<c:forEach var="menu" items="${menuDetails}">
+	<form action="/editItem" class="edit-form">
+		<input type="text" name="itemID" class="menu-input" value="${menu.itemID}" readonly="readonly">
+		<input type="text" name="itemName" id="item-input" class="menu-input" value="${menu.itemName}">
+		<select name="itemType" id="item-input" class="selection">
+						<option value="breakfast">Breakfast</option>
+						<option value="lunch">Lunch</option>
+						<option value="snacks">Snack</option>
+						<option value="dinner">Dinner</option>
+						<option selected="selected">-- Select Type --</option>
+		</select>
+		<input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}">
+		<input type="submit" value = "Update" class="viewBtn">
+	</form>
+</c:forEach>
+<%-- <table>
 		<tr>
 			<th>Menu ID</th>
 			<th>Menu Name</th>
@@ -30,16 +60,24 @@
 			<th>Menu Price</th>
 		</tr>
 		<c:set var="allMenu" scope="session" value="${menuDetails}"/>
-		<c:forEach var="menu" items="${allMenu}">
+		<c:forEach var="menu" items="${menuDetails}">
 		<tr>
-			<td>#${menu.itemID}</td>
-			<td>${menu.itemName}</td>
-			<td>${menu.itemType}</td>
-			<td>Rs.${menu.itemPrice}</td>
+			<td><input type="text" name="itemId" value="${menu.itemID}" disabled="disabled"></td>
+			<td><input type="text" name="itemName" id="item-input" class="menu-input" value="${menu.itemName}"></td>
+			<td><select name="itemType" id="item-input" class="selection">
+					<option value="breakfast">Breakfast</option>
+					<option value="lunch">Lunch</option>
+					<option value="snacks">Snack</option>
+					<option value="dinner">Dinner</option>
+					<option selected="selected">-- ${menu.itemType} --</option>
+				</select> </td>
+			<td><input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}"></td>
+			
+			<td><a href="/editItem">Edit</a></td>
 			<td><a href="/delete?id=${menu.itemID}">Delete</a></td>
 		</tr>
 		</c:forEach>
-	</table>
+	</table> --%>
 	</div>
 </div>
 <div class="Split right">
@@ -72,5 +110,22 @@
 </form>
 </div>
 </div>
+<script type="text/javascript">
+	function myFunction() {
+		var x = document.getElementById("item-input");
+		var i;
+		for(i=0;x.length; i++){
+			if(x[i].disabled === true){
+				x[i].disabled = false;
+			}
+		}
+	}
+	function enable(id){
+        var cont=id.querySelectorAll('.inactive');
+        for(let i = 0; i < cont.length; i++){
+            cont[i].classList.add('active');
+        }
+    }
+</script>
 </body>
 </html>

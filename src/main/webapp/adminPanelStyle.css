@@ -12,19 +12,23 @@ a:hover{
 	color: rgba(255, 99, 71, 1);
 }
 table, td, th {  
-  border-bottom: .5px solid rgba(255, 99, 71, 0.4);
   text-align: center;
   font-family: monospace;
 }
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  margin-left: 33px;
 }
 
 th {
-  padding: 5px;
+  padding-left: 20px;
   font-size: 17px;
+  width:200px;
+  border-left: 1px solid;
+}
+.item-type{
+	width:250px;
 }
 td{
 	padding: 10px;
@@ -42,6 +46,34 @@ select{
 	justify-content: center;
 	border-radius: 5px;
 	border: 2px solid #c0c0c0;
+}
+.selection{
+	padding: 0.5rem;
+	margin-top: 5px;
+	width: 200px;
+	height:40px;
+	font-size: 15px;
+	font-family:monospace;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	border: 2px solid #c0c0c0;
+}
+.menu-input{
+	padding: 0.6rem;
+	margin: 5px;
+	border: 2px solid #c0c0c0;
+	border-radius: 5px;
+	width: 150px;
+}
+.menu-lable{
+	padding-left: 82px;
+	margin: 10px;
+	border: 0px solid #c0c0c0;
+	border-radius: 5px;
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 16px;
 }
 .logo {
 	width:28px; height:28px;
@@ -115,7 +147,11 @@ select{
     float: none;
   }
 }
-
+.edit-form{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
 .table{
 	padding: 1%;
 	margin-top:20px;
@@ -221,6 +257,19 @@ select{
 .button:hover{
 	background-color: rgba(255, 100, 71, 0.7);
 }
-
+.viewBtn{
+	background-color: rgba(255, 255, 255, 1);
+	padding: 8px;
+	border: .5px solid;
+	border-radius: 5px;
+	width: auto;
+	height:auto;
+	margin: 5px;
+	font-size: 15px;
+	font-family: monospace;
+}
+.viewBtn:hover{
+	background-color: rgba(66, 135, 245, 0.2);
+}
 
 	

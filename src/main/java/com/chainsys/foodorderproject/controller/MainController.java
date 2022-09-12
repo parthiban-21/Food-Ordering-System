@@ -63,7 +63,6 @@ public class MainController {
 	List<User> UserInfo;
 	List<Menu> menuInfo;
 	List<Cart> cartInfo;
-	List<Orders> orderInfo;
 	
 	//Login or Sign-In
 	@GetMapping("/signIn")
@@ -101,6 +100,16 @@ public class MainController {
 	@GetMapping("/user")
 	public String user(Model model) {
 		menuInfo = userDAO.getMenuDetails();
+		model.addAttribute("menuDetails",menuInfo);
+		cartInfo = userDAO.getCart(UserInfo.get(0).getId());
+		model.addAttribute("cartDetails", cartInfo);
+		return "userPanel.jsp";
+	}
+	
+	//Search Item
+	@GetMapping("/searchItem")
+	public String searchItem(@RequestParam("itemName") String itemName,Model model) {
+		menuInfo = userDAO.getMenuDetails(itemName);
 		model.addAttribute("menuDetails",menuInfo);
 		cartInfo = userDAO.getCart(UserInfo.get(0).getId());
 		model.addAttribute("cartDetails", cartInfo);
@@ -157,9 +166,19 @@ public class MainController {
         byte[] images = fin.readAllBytes();
         mDto.setMenuImg(images);
         mainService.menuService(mDto);
-		return "adminPanel.jsp";
+		return "/admin";
 	}
 	
+	//Edit Item
+	@GetMapping("/editItem")
+	public String editItem(@RequestParam("itemID") int itemID,@RequestParam("itemName") String itemName,@RequestParam("itemType") String itemType,@RequestParam("itemPrice") float itemPrice) {
+		mDto.setMenuName(itemName);
+		mDto.setMenuType(itemType);
+		mDto.setMenuPrice(itemPrice);
+		mainService.editItemService(itemID,mDto); 
+		return "/admin";
+	}
+//	
 //	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 //	@ResponseBody
 //	public String deleteMenu(@PathVariable("id") int menuID) {
@@ -214,9 +233,47 @@ public class MainController {
 	}
 	
 	@GetMapping("/orders")
-	public String getUserOrders(int userID,Model model){
-		orderInfo = userDAO.getUserOrders(userID);
+	public String getUserOrders(Model model){
+		int userID=UserInfo.get(0).getId();
+		List<Orders> orderInfo = userDAO.getUserOrders(userID);
 		model.addAttribute("orderDetails",orderInfo);
 		return "userOrders.jsp";
+	}
+	
+	@GetMapping("/orderItems")
+	public String getOrderItemDetail(@RequestParam("orderID") String orderID,Model model) {
+		List<Cart> orderItems = userDAO.getOrderItemDetails(orderID);
+		model.addAttribute("orderItemDetails", orderItems);
+		return "/orders";
+	}
+	
+	@GetMapping("/cancelOrder")
+	public String cancelOrder(@RequestParam("orderID") String orderID) {
+		userDAO.cancelOrder(orderID);
+		return "/orders";
+	}
+	
+	@GetMapping("/adminOrders")
+	public String getOrdersDetails(Model model) {
+		List<Orders> orderInfo = adminDAO.getOrders();
+		model.addAttribute("adminOrderDetails", orderInfo);
+		List<Orders> completeOrders = adminDAO.getCompletedOrders();
+		model.addAttribute("completedOrderDetails", completeOrders);
+		return "orders.jsp";
+	}
+	
+	//Admin
+	@GetMapping("/userOrderItems")
+	public String getUserOrderItemDetail(@RequestParam("orderID") String orderID,Model model) {
+		List<Cart> orderItems = adminDAO.getOrderItemDetails(orderID);
+		model.addAttribute("userOrderItemDetails", orderItems);
+		return "/adminOrders";
+	}
+	
+	//Update Order
+	@GetMapping("/updateOrderStatus")
+	public String updateOrderStatus(@RequestParam("orderID") String orderID) {
+		adminDAO.updateOrderStatus(orderID);
+		return "/adminOrders";
 	}
 }
