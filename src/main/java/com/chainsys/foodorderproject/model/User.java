@@ -7,7 +7,7 @@ public class User {
 	private int id;
 	private String name;
 	private String mailID;
-	private String phoneNo;
+	private String phoneNumber;
 	private String address;
 	private String password;
 	
@@ -32,11 +32,11 @@ public class User {
 	public void setMailID(String mailID) {
 		this.mailID = mailID;
 	}
-	public String getPhoneNo() {
-		return phoneNo;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public String getAddress() {
 		return address;
@@ -58,7 +58,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", mailID=" + mailID + ", phoneNo=" + phoneNo + ", address="
-				+ address + ", password=" + password + "]";
+		return "User [id=" + id + ", name=" + name + ", mailID=" + mailID + ", phoneNumber=" + phoneNumber
+				+ ", address=" + address + ", password=" + password + ", adminMailID=" + adminMailID
+				+ ", adminPassword=" + adminPassword + "]";
 	}
 }

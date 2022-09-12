@@ -11,7 +11,7 @@ public class Orders {
 	private int itemID;
 	private String itemName;
 	private int quantity;
-	private float perPrice;
+	private float unitPrice;
 	private String orderType;
 	private Date orderDate;
 	private String orderStatus;
@@ -47,11 +47,11 @@ public class Orders {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public float getPerPrice() {
-		return perPrice;
+	public float getUnitPrice() {
+		return unitPrice;
 	}
-	public void setPerPrice(float perPrice) {
-		this.perPrice = perPrice;
+	public void setUnitPrice(float unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 	public String getOrderType() {
 		return orderType;
@@ -80,8 +80,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [orderID=" + orderID + ", customerID=" + customerID + ", itemID=" + itemID + ", itemName="
-				+ itemName + ", quantity=" + quantity + ", perPrice=" + perPrice + ", orderType=" + orderType
+				+ itemName + ", quantity=" + quantity + ", perPrice=" + unitPrice + ", orderType=" + orderType
 				+ ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", totalPrice=" + totalPrice + "]";
 	}
-	
 }

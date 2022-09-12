@@ -19,10 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.chainsys.foodorderproject.dao.AdminDAO;
 import com.chainsys.foodorderproject.dao.UserDAO;
-import com.chainsys.foodorderproject.dto.MainDto;
-import com.chainsys.foodorderproject.dto.MenuDto;
-import com.chainsys.foodorderproject.dto.SignInDto;
-import com.chainsys.foodorderproject.dto.SignUpDto;
+import com.chainsys.foodorderproject.dto.MainDTO;
+import com.chainsys.foodorderproject.dto.MenuDTO;
+import com.chainsys.foodorderproject.dto.SignInDTO;
+import com.chainsys.foodorderproject.dto.SignUpDTO;
 import com.chainsys.foodorderproject.model.Cart;
 import com.chainsys.foodorderproject.model.Menu;
 import com.chainsys.foodorderproject.model.Orders;
@@ -37,16 +37,16 @@ public class MainController {
 	User user;
 	
 	@Autowired
-	MainDto mainDto;
+	MainDTO mainDTO;
 	
 	@Autowired
-	SignInDto signInDto;
+	SignInDTO signInDTO;
 	
 	@Autowired
-	SignUpDto signUpDto;
+	SignUpDTO signUpDTO;
 	
 	@Autowired
-	MenuDto mDto;
+	MenuDTO menuDTO;
 	
 	@Autowired
 	UserDAO userDAO;
@@ -67,11 +67,11 @@ public class MainController {
 	//Login or Sign-In
 	@GetMapping("/signIn")
 	public String login(@RequestParam("emailID") String mailID,@RequestParam("password") String password,Model model) {
-		signInDto.setUserMailID(mailID);
-		signInDto.setPassword(password);
+		signInDTO.setUserMailID(mailID);
+		signInDTO.setPassword(password);
 		
 		//Admin Login
-		if(signInDto.getUserMailID().equals(user.getAdminMailID()) && signInDto.getPassword().equals(user.getAdminPassword())) {
+		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPassword())) {
 			return "/admin";
 		}
 		else {
@@ -119,21 +119,21 @@ public class MainController {
 	//Logout
 	@GetMapping("/logout")
 	public String logout() {
-		signInDto.setUserMailID(null);
-		signInDto.setPassword(null);
+		signInDTO.setUserMailID(null);
+		signInDTO.setPassword(null);
 		return "login.jsp";
 	}
 	
 	//User Sign-Up
 	@PostMapping("/signUp")
 	public String signUp(@RequestParam("name") String name,@RequestParam("emailID") String mailID,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password,Model model) {
-		signUpDto.setUserName(name);
-		signUpDto.setUserPhoneNo(phoneNo);
-		signUpDto.setUserAddress(address);
-		signUpDto.setUserPassword(password);
+		signUpDTO.setUserName(name);
+		signUpDTO.setUserPhoneNo(phoneNo);
+		signUpDTO.setUserAddress(address);
+		signUpDTO.setUserPassword(password);
 		if(userValidation.checkMailID(mailID)) {
-			signUpDto.setUserMailID(mailID);
-			mainService.signUpService(signUpDto);
+			signUpDTO.setUserMailID(mailID);
+			mainService.signUpService(signUpDTO);
 			return "login.jsp";
 		}
 		else {
@@ -145,37 +145,50 @@ public class MainController {
 	//Update User Info
 	@PostMapping("/updateInfo")
 	public String updateInfo(@RequestParam("name") String name,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password) {
-		mainDto.setUserName(name);
-		mainDto.setUserPhoneNo(phoneNo);
-		mainDto.setUserAddress(address);
-		mainDto.setUserPassword(password);
-		mainService.updateService(UserInfo,mainDto);
+		mainDTO.setUserName(name);
+		mainDTO.setUserPhoneNo(phoneNo);
+		mainDTO.setUserAddress(address);
+		mainDTO.setUserPassword(password);
+		mainService.updateService(UserInfo,mainDTO);
 		return "/user";
+	}
+	
+	//Forgot Password - User
+	@PostMapping("/forgotPassword")
+	public String forgotPassword(@RequestParam("emailID") String mailID,@RequestParam("password") String password,Model model) {
+		if(userValidation.checkMailID(mailID)) {
+			model.addAttribute("errMsg", "No Mail-ID Found");
+			return "forgotPassword.jsp";
+		}
+		else {
+			userDAO.forgotPassword(mailID, password);
+			return "login.jsp";
+		}
 	}
 	
 	//Add Item - Admin
 	@PostMapping("/addMenu")
 	public String addMenu(@RequestParam("menuName") String name,@RequestParam("menuType") String type,@RequestParam("menuPrice") float price, @RequestParam("menuImg") MultipartFile img,Model model) throws IOException {
-		mDto.setMenuName(name);
-		mDto.setMenuType(type);
-		mDto.setMenuPrice(price);
+		menuDTO.setMenuName(name);
+		menuDTO.setMenuType(type);
+		menuDTO.setMenuPrice(price);
 		
 		String path = "C:\\Users\\part3269\\Documents\\foodorderproject\\foodorderproject\\src\\main\\webapp\\images\\";
         String filename = img.getOriginalFilename();
         FileInputStream fin = new FileInputStream(path+filename);
         byte[] images = fin.readAllBytes();
-        mDto.setMenuImg(images);
-        mainService.menuService(mDto);
+        menuDTO.setMenuImg(images);
+        mainService.menuService(menuDTO);
 		return "/admin";
 	}
 	
 	//Edit Item
 	@GetMapping("/editItem")
 	public String editItem(@RequestParam("itemID") int itemID,@RequestParam("itemName") String itemName,@RequestParam("itemType") String itemType,@RequestParam("itemPrice") float itemPrice) {
-		mDto.setMenuName(itemName);
-		mDto.setMenuType(itemType);
-		mDto.setMenuPrice(itemPrice);
-		mainService.editItemService(itemID,mDto); 
+		menuDTO.setMenuName(itemName);
+		menuDTO.setMenuType(itemType);
+		menuDTO.setMenuPrice(itemPrice);
+		mainService.editItemService(itemID,menuDTO); 
 		return "/admin";
 	}
 //	
@@ -212,16 +225,22 @@ public class MainController {
 	
 	//Decrease Quantity in CART
 	@GetMapping("/decQuantity")
-	public String decQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity) {
+	public String decQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity,Model model) {
 		int userID=UserInfo.get(0).getId();
-		userDAO.decQuantity(userID,itemID,itemQuantity);
+		if(userValidation.checkItemQuantity(userID, itemID,itemQuantity))
+			userDAO.decQuantity(userID,itemID,itemQuantity);
+		else
+			model.addAttribute("errMsg", "Item Cannot be Less than 1");
 		return "/user";
 	}
 	
 	//Add item to CART
 	@GetMapping("/addToCart")
-	public String addToCart(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID) {
-		userDAO.addToCart(userID, itemID);
+	public String addToCart(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID,Model model) {
+		if(userValidation.isItemInCart(itemID, userID))
+			userDAO.addToCart(userID, itemID);
+		else
+			model.addAttribute("errMsg", "Already in Cart");
 		return "/user";
 	}
 	
@@ -237,6 +256,8 @@ public class MainController {
 		int userID=UserInfo.get(0).getId();
 		List<Orders> orderInfo = userDAO.getUserOrders(userID);
 		model.addAttribute("orderDetails",orderInfo);
+		List<Orders> completedOrders = userDAO.getCompletedOrders(userID);
+		model.addAttribute("completedOrderDetails", completedOrders);
 		return "userOrders.jsp";
 	}
 	

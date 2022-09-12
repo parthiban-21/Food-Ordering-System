@@ -16,7 +16,7 @@ public class ConfirmedOrderMapper implements RowMapper<Orders>{
 		orders.setCustomerID(rs.getInt("CUSTOMER_ID"));
 		orders.setItemID(rs.getInt("ITEM_ID"));
 		orders.setItemName(rs.getString("ITEM_NAME"));
-		orders.setPerPrice(rs.getFloat("ITEM_PRICE"));
+		orders.setUnitPrice(rs.getFloat("ITEM_PRICE"));
 		orders.setQuantity(rs.getInt("QUANTITY"));
 		orders.setOrderType(rs.getString("ORDER_TYPE"));
 		orders.setOrderDate(rs.getDate("ORDER_DATE"));

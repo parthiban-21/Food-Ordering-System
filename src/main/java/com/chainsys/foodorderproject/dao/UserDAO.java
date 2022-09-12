@@ -30,15 +30,22 @@ public class UserDAO {
 	public void createUser(User user) {
 		String insertUserQuery = "insert into CUSTOMER(CUSTOMER_ID,CUSTOMER_NAME,MAIL_ID,PHONE_NO,ADDRESS,PASSWORD)"
 				+ " values(CUSTOMERID.nextval,?,?,?,?,?)";
-		Object[] details = {user.getName(),user.getMailID(),user.getPhoneNo(),user.getAddress(),user.getPassword()};
+		Object[] details = {user.getName(),user.getMailID(),user.getPhoneNumber(),user.getAddress(),user.getPassword()};
 		jdbcTemplate.update(insertUserQuery,details);
 	}
 
 	//Update User Details
 	public void updateUserDetails(User user) {
 		String updateUserDetailQuery = "update CUSTOMER set CUSTOMER_NAME=?,PHONE_NO=?,ADDRESS=? where MAIL_ID=? and PASSWORD=?";
-		Object[] details = {user.getName(),user.getPhoneNo(),user.getAddress(),user.getMailID(),user.getPassword()};
+		Object[] details = {user.getName(),user.getPhoneNumber(),user.getAddress(),user.getMailID(),user.getPassword()};
 		jdbcTemplate.update(updateUserDetailQuery,details);
+	}
+	
+	//Update User Password - Forgot Password
+	public void forgotPassword(String mailID,String newPassword) {
+		String updatePasswordQuery = "update CUSTOMER set PASSWORD=? where MAIL_ID=?";
+		Object[] userData = {newPassword,mailID};
+		jdbcTemplate.update(updatePasswordQuery,userData);
 	}
 
 	//Get User Details from DB
@@ -79,7 +86,7 @@ public class UserDAO {
 
 	//Gets all Menu Details By Time
 	public List<Menu> getMenuDetails(){
-		String getMenuQuery = "select * from MENU where ITEM_TYPE=? or ITEM_TYPE=?";
+		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_TYPE=? or ITEM_TYPE=?";
 		String time = getTime();
 		Object[] values = {time,"snacks"};
 		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
@@ -219,9 +226,17 @@ public class UserDAO {
 	
 	//Get User Orders
 	public List<Orders> getUserOrders(int userID){
-		String getUserOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=?";
+		String getUserOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and ORDER_STATUS='Order Placed'";
 		Object[] id = {userID};
 		List<Orders> userOrderDetails = jdbcTemplate.query(getUserOrderQuery,new OrderMapper(), id);
+		return userOrderDetails;
+	}
+	
+	//Get User Orders
+	public List<Orders> getCompletedOrders(int userID){
+		String getCompletedOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and ORDER_STATUS='Completed'";
+		Object[] id = {userID};
+		List<Orders> userOrderDetails = jdbcTemplate.query(getCompletedOrderQuery,new OrderMapper(), id);
 		return userOrderDetails;
 	}
 	
@@ -230,7 +245,6 @@ public class UserDAO {
 		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
 		Object[] id = {orderID};
 		List<Cart> userOrderItems = jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
-		System.out.println(userOrderItems);
 		return userOrderItems;
 	}
 	

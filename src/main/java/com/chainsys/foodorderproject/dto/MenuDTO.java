@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MenuDto {
+public class MenuDTO {
 	private int itemID;
 	private String itemName;
 	private String itemType;

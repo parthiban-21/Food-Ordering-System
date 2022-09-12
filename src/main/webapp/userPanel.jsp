@@ -14,7 +14,7 @@
 	<c:set var="id" scope="session" value="${info.id}"/>
 	<c:set var="userName" scope="session" value="${info.name}"/>
 	<c:set var="emailID" scope="session" value="${info.mailID}"/>
-	<c:set var="mobileNo" scope="session" value="${info.phoneNo}"/>
+	<c:set var="mobileNo" scope="session" value="${info.phoneNumber}"/>
 	<c:set var="address" scope="session" value="${info.address}"/>
 </c:forEach>
 <div class="header">

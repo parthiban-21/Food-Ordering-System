@@ -17,14 +17,14 @@ public class UserMapper implements RowMapper<User>{
 		int id = rs.getInt("CUSTOMER_ID");
 		String name = rs.getString("CUSTOMER_NAME");
 		String mailID = rs.getString("MAIL_ID");
-		String phoneNo = rs.getString("PHONE_NO");
+		String phoneNumber = rs.getString("PHONE_NO");
 		String address = rs.getString("ADDRESS");
 		String password = rs.getString("PASSWORD");
 		
 		u.setId(id);
 		u.setName(name);
 		u.setMailID(mailID);
-		u.setPhoneNo(phoneNo);
+		u.setPhoneNumber(phoneNumber);
 		u.setAddress(address);
 		u.setPassword(password);
 		

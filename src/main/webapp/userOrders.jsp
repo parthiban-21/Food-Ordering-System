@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="userOrderStyle.css">
@@ -24,6 +24,7 @@
 <div class="split right">
 	<div id="order-details" class="form">
 	<table class="table-details">
+		<caption>Order Item Details</caption>
 		<tr>
 		<th>Name</th>
 		<th>Quantity</th>
@@ -53,6 +54,7 @@
 		<div class="tab" id="tab">
 	<label class="formhead">Your Orders</label>
 	<table class="order-table">
+	<caption>User Order Details</caption>
 		<tr>
 			<th>Order ID</th>
 			<th>Order Date</th>
@@ -70,6 +72,16 @@
 				</tr>
 		</c:forEach>
 	</table>
+</div>
+<div class="completed-section">
+	<c:forEach var="completeOrders" items="${completedOrderDetails}">
+	<div class="completed-orders">
+		<label>OrderID: ${completeOrders.orderID}</label>
+		<label>OrderDate: ${completeOrders.orderDate}</label>
+		<label class="completed">${completeOrders.orderStatus}</label>
+		<a href="/orderItems?orderID=${completeOrders.orderID}"><button class="viewBtn">View Order</button></a>
+	</div>
+	</c:forEach>
 </div>
 </div>
 <script type="text/javascript">

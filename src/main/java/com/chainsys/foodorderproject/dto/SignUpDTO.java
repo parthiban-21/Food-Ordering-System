@@ -3,7 +3,7 @@ package com.chainsys.foodorderproject.dto;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SignUpDto {
+public class SignUpDTO {
 	private int userID;
 	private String userName;
 	private String userMailID;

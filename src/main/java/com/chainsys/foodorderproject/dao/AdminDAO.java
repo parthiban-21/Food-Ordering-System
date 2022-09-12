@@ -21,7 +21,7 @@ public class AdminDAO {
 
 	//Gets all Menu Details
 	public List<Menu> getAllMenuDetails(){
-		String getMenuQuery = "select * from MENU";
+		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU";
 		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper());
 		return menuDetails;
 	}
@@ -66,7 +66,6 @@ public class AdminDAO {
 		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
 		Object[] id = {orderID};
 		List<Cart> userOrderItems = jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
-		System.out.println(userOrderItems);
 		return userOrderItems;
 	}
 	

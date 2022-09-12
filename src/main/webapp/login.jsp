@@ -28,7 +28,8 @@
 		<label class="lable">Password</label>
 		<input type="password" name="password" id = "showPassword" class="input" placeholder="Enter Your Password" required><br>
 		<div>
-		<input type="checkbox" onclick="myFunction()">Show Password
+		<input type="checkbox" onclick="showPassword()"><label class="show-password">Show Password | </label>
+		<a href="forgotPassword.jsp">Forgot Password</a>
 		</div>
 		<input type="submit" class="button" value="Sign-In">
 		<label class="opac">Or</label>
@@ -37,15 +38,6 @@
 	<label class="errorLabel">${errMsg}</label>
 </div>
 </div>
-<script type="text/javascript">
-function myFunction() {
-	var x = document.getElementById("showPassword");
-	if (x.type === "password") {
-		x.type = "text";
-	} else {
-		x.type = "password";
-	}
-}
-</script>
+<script src="/webapp/script/UserJavaScript.js"></script>
 </body>
 </html>
