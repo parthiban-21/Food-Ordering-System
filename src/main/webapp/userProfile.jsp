@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date" %>  
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="userProfileStyle.css">
@@ -26,7 +26,8 @@
 <div class="table">
 <label class="formhead">Your Details</label>
 <img class="profile" alt="Profile Picture" src="images/profilePicture.png">
-<table> 
+<table>
+<caption>User Details</caption>
 		<tr>
 			<th>Name: </th>
 			<td>${userName}</td>

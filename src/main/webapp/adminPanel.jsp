@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="adminPanelStyle.css">
@@ -21,63 +21,28 @@
 	</div>
 </div>
 <div class="split left">
-<div class="table">
-<div>
-	<label class="menu-lable">Item-ID</label>
-	<label class="menu-lable">Item Name</label>
-	<label class="menu-lable">Item Type</label>
-	<label class="menu-lable">Item Price</label><br>
-	<!-- <table>
-	<tr>
-		<th>Item-ID</th>
-		<th>Item Name</th>
-		<th class="item-type">Item Type</th>
-		<th>Item Price</th>
-		<th></th>
-	</tr>
-	</table> -->
-</div>
-<c:forEach var="menu" items="${menuDetails}">
-	<form action="/editItem" class="edit-form">
-		<input type="text" name="itemID" class="menu-input" value="${menu.itemID}" readonly="readonly">
-		<input type="text" name="itemName" id="item-input" class="menu-input" value="${menu.itemName}">
-		<select name="itemType" id="item-input" class="selection">
-						<option value="breakfast">Breakfast</option>
-						<option value="lunch">Lunch</option>
-						<option value="snacks">Snack</option>
-						<option value="dinner">Dinner</option>
-						<option selected="selected">-- Select Type --</option>
-		</select>
-		<input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}">
-		<input type="submit" value = "Update" class="viewBtn">
-	</form>
-</c:forEach>
-<%-- <table>
-		<tr>
-			<th>Menu ID</th>
-			<th>Menu Name</th>
-			<th>Menu Type</th>
-			<th>Menu Price</th>
-		</tr>
-		<c:set var="allMenu" scope="session" value="${menuDetails}"/>
+	<div class="table">
+	<div>
+		<label class="menu-lable">Item-ID</label>
+		<label class="menu-lable">Item Name</label>
+		<label class="menu-lable">Item Type</label>
+		<label class="menu-lable">Item Price</label><br>
+	</div>
 		<c:forEach var="menu" items="${menuDetails}">
-		<tr>
-			<td><input type="text" name="itemId" value="${menu.itemID}" disabled="disabled"></td>
-			<td><input type="text" name="itemName" id="item-input" class="menu-input" value="${menu.itemName}"></td>
-			<td><select name="itemType" id="item-input" class="selection">
-					<option value="breakfast">Breakfast</option>
-					<option value="lunch">Lunch</option>
-					<option value="snacks">Snack</option>
-					<option value="dinner">Dinner</option>
-					<option selected="selected">-- ${menu.itemType} --</option>
-				</select> </td>
-			<td><input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}"></td>
-			
-			<td><a href="/editItem">Edit</a></td>
-			<td><a href="/delete?id=${menu.itemID}">Delete</a></td>
-		</tr>
+			<form action="/editItem" class="edit-form">
+				<input type="text" name="itemID" class="menu-input" value="${menu.itemID}" readonly="readonly">
+				<input type="text" name="itemName" id="item-input" class="menu-input" value="${menu.itemName}">
+				<select name="itemType" id="item-input" class="selection">
+								<option value="breakfast">Breakfast</option>
+								<option value="lunch">Lunch</option>
+								<option value="snacks">Snack</option>
+								<option value="dinner">Dinner</option>
+								<option selected="selected">-- Select Type --</option>
+				</select>
+				<input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}">
+				<input type="submit" value = "Update" class="viewBtn">
+			</form>
 		</c:forEach>
-	</table> --%>
 	</div>
 </div>
 <div class="Split right">

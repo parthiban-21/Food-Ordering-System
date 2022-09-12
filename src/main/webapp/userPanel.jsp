@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="userPanelStyle.css">
@@ -31,9 +31,8 @@
 <div class="split right">
 <div class="table">
 <label class="formhead">Your Cart</label>
-
-
 <table>
+<caption>User Cart</caption>
 		<tr>
 			<th>Name</th>
 			<th colspan="3">Quantity</th>
@@ -84,7 +83,6 @@
 				<div class="menubottom">
 					<p class="menu-price">Rs.${menu.itemPrice} /-</p>
 					<a href="/addToCart?userID=${id}&itemID=${menu.itemID}"><button class="add-btn" onclick='this.disabled = true;'>Add to Cart</button></a>
-					<!-- <button class="delete-btn">-</button> -->
 				</div>
 			</div>
 		</div>

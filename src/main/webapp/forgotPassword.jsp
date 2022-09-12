@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="loginStyle.css">
@@ -21,9 +21,7 @@
 		<input type="checkbox" onclick="myFunction()"><label class="show-password">Show Password</label>
 		</div>
 		<input type="submit" class="button" value="Update">
-		<!-- <label class="opac">Or</label> -->
 	</form>
-	<!-- <a href="signup.jsp"><button class="button">Sign-Up</button></a> -->
 	<label class="errorLabel">${errMsg}</label>
 </div>
 <script type="text/javascript">

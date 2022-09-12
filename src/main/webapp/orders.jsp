@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="ordersStyle.css">
@@ -22,6 +22,7 @@
 <div class="split right">
 	<div id="order-details" class="form">
 	<table class="table-details">
+	<caption>Order Item Details</caption>
 		<tr>
 		<th>Name</th>
 		<th>Quantity</th>
@@ -51,6 +52,7 @@
 	<div class="tab" id="tab">
 	<label class="formhead">Your Orders</label>
 	<table class="order-table">
+	<caption>Order Details</caption>
 		<tr>
 			<th>Order ID</th>
 			<th>Order Date</th>

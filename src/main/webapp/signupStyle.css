@@ -88,7 +88,7 @@ a:hover{
 	margin-top:5%;
 	padding-bottom: 30px;
 	font-family:monospace;
-	font: bold;
+	font-weight: bold;
 }
 .formbottom{
 	display: flex;

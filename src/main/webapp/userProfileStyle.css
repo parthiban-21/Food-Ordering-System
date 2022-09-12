@@ -162,7 +162,7 @@ tr:hover{
 	font-size: 20px;
 	padding-bottom: 12px;
 	font-family:monospace;
-	font: bold;
+	font-weight: bold;
 }
 .formbottom{
 	display: flex;
