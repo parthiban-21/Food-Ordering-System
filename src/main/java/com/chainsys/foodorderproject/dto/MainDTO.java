@@ -7,8 +7,8 @@ public class MainDTO {
 
 	private int userID;
 	private String userName;
-	private String userMailID;
 	private String userPhoneNo;
+	private String userMailID;
 	private String userAddress;
 	private String userPassword;
 
@@ -24,28 +24,28 @@ public class MainDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getUserMailID() {
-		return userMailID;
-	}
-	public void setUserMailID(String userMailID) {
-		this.userMailID = userMailID;
-	}
 	public String getUserPhoneNo() {
 		return userPhoneNo;
 	}
 	public void setUserPhoneNo(String userPhoneNo) {
 		this.userPhoneNo = userPhoneNo;
 	}
-	public String getUserAddress() {
-		return userAddress;
+	public String getUserMailID() {
+		return userMailID;
 	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
+	public void setUserMailID(String userMailID) {
+		this.userMailID = userMailID;
 	}
 	public String getUserPassword() {
 		return userPassword;
 	}
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
 	}
 }

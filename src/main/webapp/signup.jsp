@@ -19,12 +19,13 @@
 		pattern="[A-Za-z]+" title="Invalied Name" required><br>
 		
 		<label class="lable">Mobile Number</label>
+		<label class="errorLabel">${errMsgPhoneNumber}</label>
 		<input type="text" name="mobileno" class="input" placeholder="Enter Your Mobile Number"
 		pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" required><br>
 		
 		<label class="lable">Address</label>
 		<input type="text" name="address" class="input" placeholder="Enter Your Address"
-		pattern="[A-Za-z0-9]+" title="Invalied Address" required><br>
+		pattern="^[#.0-9a-zA-Z\s,-]+$" title="Invalied Address" required><br>
 		
 		<label class="lable">Email ID</label>
 		<label class="errorLabel">${errMsg}</label>

@@ -1,6 +1,8 @@
 package com.chainsys.foodorderproject.validation;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,65 +20,89 @@ public class UserValidation {
 	JdbcTemplate jdbcTemplate;
 
 	//Check Mail-ID Exist or Not
-	public Boolean checkMailID(String mailID) {
-		String getMailIDQuery = "select MAIL_ID from CUSTOMER where MAIL_ID=?";
+	public boolean checkMailID(String mailID) {
+		String getMailIDQuery = "select MAIL_ID,PHONE_NO from CUSTOMER where MAIL_ID=?";
 		Object[] value = {mailID};
-		try {
-			List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
-			if(id.size()==0) {
-				return true;//Required
-			}
-			else {
-				return false;
-			}
+		List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
+		if(id.isEmpty()) {
+			return true;//Required
 		}
-		catch(Exception e) {
+		else {
 			return false;
 		}
 	}
 	
 	//Check Mobile Number Exist or Not*
-	public Boolean checkMobileNo(String mobileNo) {
-		String getMailIDQuery = "select MAIL_ID from CUSTOMER where MAIL_ID=?";
-		Object[] value = {mobileNo};
-		try {
-			List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
-			if(id.size()==0) {
-				return true;//Required
-			}
-			else {
-				return false;
-			}
+	public boolean checkMobileNumber(String mobileNumber) {
+		String getMailIDQuery = "select MAIL_ID,PHONE_NO from CUSTOMER where PHONE_NO=?";
+		Object[] value = {mobileNumber};
+		List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
+		if(id.isEmpty()) {
+			return true; //Required
 		}
-		catch(Exception e) {
+		else {
 			return false;
 		}
 	}
 	
 	//Check ItemID in Cart
-	public Boolean isItemInCart(int itemID,int userID) {
+	public boolean isItemInCart(int itemID,int userID) {
 		String getItemIDQuery = "select ITEM_ID from CART where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
 		Object[] value = {userID,itemID};
-		try {
-			List<Cart> id = jdbcTemplate.query(getItemIDQuery,new ItemIDMapper(),value);
-			if(id.size()==0)
-				return true;//Required
-			else
-				return false;
-		}
-		catch (Exception e) {
+		List<Cart> id = jdbcTemplate.query(getItemIDQuery,new ItemIDMapper(),value);
+		if(id.isEmpty())
+			return true;//Required
+		else
 			return false;
-		}
 	}
 	
 	//Check ItemID in Cart
-	public Boolean checkItemQuantity(int userID,int itemID,int itemQuantity) {
-//		String getItemQuantityQuery = "select QUANTITY from CART where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
-//		Object[] value = {userID,itemID};
-//		int itemQty = jdbcTemplate.queryForObject(getItemQuantityQuery,int.class,value);
+	public boolean checkItemQuantity(int userID,int itemID,int itemQuantity) {
 		if(itemQuantity>1)
 			return true; //Required
 		else
 			return false;
+	}
+
+	public boolean checkName(String name) {
+		String userPattern = "^(?!.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		Pattern pattern = Pattern.compile(userPattern);
+		Matcher match = pattern.matcher(name);
+		return match.matches();
+	}
+
+	//Validate Mail-ID
+	public boolean checkEmailID(String mailID) {
+		String userPattern = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+				"[a-zA-Z0-9_+&*-]+)*@" +
+				"(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+				"A-Z]{2,7}$";
+		Pattern pattern = Pattern.compile(userPattern);
+		Matcher match = pattern.matcher(mailID);
+		return match.matches();
+	}
+
+	//Validate Phone Number
+	public boolean checkPhoneNo(String phoneNo) {
+		String userPattern = "^(0/91)?[7-9][0-9]{9}$";
+		Pattern pattern = Pattern.compile(userPattern);
+		Matcher match = pattern.matcher(phoneNo);
+		return match.matches();
+	}
+
+	//Validate Address 
+	public boolean checkAddress(String address) {
+		String userPattern = "^(?!.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		Pattern pattern = Pattern.compile(userPattern);
+		Matcher match = pattern.matcher(address);
+		return match.matches();
+	}
+	
+	//Validate Password 
+	public boolean checkPassword(String password) {
+		String userPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		Pattern pattern = Pattern.compile(userPattern);
+		Matcher match = pattern.matcher(password);
+		return match.matches();
 	}
 }

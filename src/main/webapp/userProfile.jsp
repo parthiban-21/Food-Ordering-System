@@ -51,41 +51,44 @@
 
 <div class="Split right">
 <div class="form">
-	<form action="updateInfo" method="post">
+	<form action="updateInfo" method="get">
 	<label class="formhead">Update Your Information</label>
 	
 	<label class="lable">Name</label>
-	<input type="text" name="name" id="input-edit" class="input" placeholder="Enter New Name" value="${userName}"
+	<input type="text" name="name" id="edit-name" class="input" placeholder="Enter New Name" value="${userName}"
 	pattern="[A-Za-z]+" title="Invalied Name" disabled="disabled" required><br>
 	
 	<label class="lable">Mobile Number</label>
-	<input type="text" name="mobileno" id="input-edit" class="input" placeholder="Enter New Mobile Number" value="${mobileNo}"
+	<input type="text" name="mobileno" id="edit-phoneNumber" class="input" placeholder="Enter New Mobile Number" value="${mobileNo}"
 	pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" disabled="disabled" required><br>
 	
 	<label class="lable">Address</label>
-	<input type="text" name="address" id="input-edit" class="input" placeholder="Enter New Address" value="${address}"
-	pattern="[A-Za-z0-9]+" title="Invalied Address" disabled="disabled" required><br>
+	<input type="text" name="address" id="edit-addresss" class="input" placeholder="Enter New Address" value="${address}"
+	pattern="^[#.0-9a-zA-Z\s,-]+$" title="Invalied Address" disabled="disabled" required><br>
 	
 	<label class="lable">Password</label>
-	<input type="password" name="password" id="input-edit" class="input" placeholder="Confirm Password" disabled="disabled" required><br>
+	<input type="password" name="password" id="edit-password" class="input" placeholder="Confirm Password" disabled="disabled" required><br>
 	<div class="formbottom">
-	<input type="submit" class="button" value="Update Info">
+	<input type="submit" id="edit-submit" class="button" value="Update Info" disabled="disabled">
 	</div>
 	</form>
-	<button onclick="myFunction();">Edit</button>
+	<div class="formbottom"><button class="button" onclick="myFunction();">Edit</button></div>
 </div>
 </div>
 <script type="text/javascript">
 
 	function myFunction() {
-		var x = document.getElementById("input-edit");
-		var i;
-		for (i = 0; x.length; i++) {
-			if (x[i].disabled === true) {
-				x[i].disabled = false;
-			} else {
-				x[i].disabled = true;
-			}
+		let name = document.getElementById("edit-name");
+		let phoneNumber = document.getElementById("edit-phoneNumber");
+		let address = document.getElementById("edit-addresss");
+		let password = document.getElementById("edit-password");
+		let submit = document.getElementById("edit-submit");
+		if (submit.disabled === true) {
+			name.disabled = false;
+			phoneNumber.disabled = false;
+			address.disabled = false;
+			password.disabled = false;
+			submit.disabled = false;
 		}
 	}
 </script>

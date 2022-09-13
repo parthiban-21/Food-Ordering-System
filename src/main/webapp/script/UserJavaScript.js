@@ -1,6 +1,13 @@
+function show() {
+	var x = document.getElementById("show-Password");
+	if (x.type === "password") {
+		x.type = "text";
+	} else {
+		x.type = "password";
+	}
+}
 
-function myFunction(d) {
-	d.preventDefault();
+function myFunction() {
 	var x = document.getElementById("order-details");
 	var y = document.getElementById("tab");
 	if (x.style.display === "none") {
@@ -9,14 +16,5 @@ function myFunction(d) {
 	} else {
 		x.style.display = "none";
 		y.style.width = "96.6%";
-	}
-}
-
-function showPassword() {
-	var x = document.getElementById("showPassword");
-	if (x.type === "password") {
-		x.type = "text";
-	} else {
-		x.type = "password";
 	}
 }

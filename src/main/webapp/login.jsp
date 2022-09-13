@@ -26,9 +26,9 @@
 		<label class="lable">Email ID</label>
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
 		<label class="lable">Password</label>
-		<input type="password" name="password" id = "showPassword" class="input" placeholder="Enter Your Password" required><br>
+		<input type="password" name="password" id = "show-Password" class="input" placeholder="Enter Your Password" required><br>
 		<div>
-		<input type="checkbox" onclick="showPassword()"><label class="show-password">Show Password | </label>
+		<input type="checkbox" onclick="showPassword();"><label class="show-password">Show Password | </label>
 		<a href="forgotPassword.jsp">Forgot Password</a>
 		</div>
 		<input type="submit" class="button" value="Sign-In">
@@ -38,6 +38,15 @@
 	<label class="errorLabel">${errMsg}</label>
 </div>
 </div>
-<script src="/webapp/script/UserJavaScript.js"></script>
+<script>
+function showPassword() {
+	let x = document.getElementById("show-Password");
+	if (x.type === "password") {
+		x.type = "text";
+	} else {
+		x.type = "password";
+	}
+}
+</script>
 </body>
 </html>

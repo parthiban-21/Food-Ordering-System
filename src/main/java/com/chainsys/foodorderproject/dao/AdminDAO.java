@@ -22,8 +22,7 @@ public class AdminDAO {
 	//Gets all Menu Details
 	public List<Menu> getAllMenuDetails(){
 		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU";
-		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper());
-		return menuDetails;
+		return jdbcTemplate.query(getMenuQuery,new MenuMapper());
 	}
 
 	//Add Menu
@@ -50,8 +49,7 @@ public class AdminDAO {
 	//Get Orders
 	public List<Orders> getOrders() {
 		String getOrdersQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where ORDER_STATUS='Order Placed'";
-		List<Orders> orderDetails = jdbcTemplate.query(getOrdersQuery,new OrderMapper());
-		return orderDetails;
+		return jdbcTemplate.query(getOrdersQuery,new OrderMapper());
 	}
 	
 	//Get Orders - Completed
@@ -71,8 +69,8 @@ public class AdminDAO {
 	
 	//Update Order Status
 	public void updateOrderStatus(String orderID) {
-		String editItemQuery = "update ORDERS set ORDER_STATUS=? where ORDER_ID=?";
-		Object[] values = {"Completed",orderID};
+		String editItemQuery = "update ORDERS set ORDER_STATUS='Completed' where ORDER_ID=?";
+		Object[] values = {orderID};
 		jdbcTemplate.update(editItemQuery,values);
 	}
 }

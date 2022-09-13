@@ -13,6 +13,7 @@ public class MailIDMapper implements RowMapper<User>{
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		User user = new User();
 		user.setMailID(rs.getString("MAIL_ID"));
+		user.setPhoneNumber(rs.getString("PHONE_NO"));
 		return user;
 	}
 

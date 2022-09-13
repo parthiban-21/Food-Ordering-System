@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import com.chainsys.foodorderproject.dao.AdminDAO;
 import com.chainsys.foodorderproject.dao.UserDAO;
@@ -48,9 +49,6 @@ public class MainService {
 			user.setPassword(info.get(0).getPassword());
 			
 			userDAO.updateUserDetails(user);
-		}
-		else {
-			System.out.println("error");
 		}
 	}
 	

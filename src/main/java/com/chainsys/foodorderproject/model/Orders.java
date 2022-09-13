@@ -29,29 +29,29 @@ public class Orders {
 	public void setCustomerID(int customerID) {
 		this.customerID = customerID;
 	}
-	public int getItemID() {
-		return itemID;
-	}
-	public void setItemID(int itemID) {
-		this.itemID = itemID;
-	}
 	public String getItemName() {
 		return itemName;
 	}
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public int getQuantity() {
-		return quantity;
+	public int getItemID() {
+		return itemID;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
 	}
 	public float getUnitPrice() {
 		return unitPrice;
 	}
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public String getOrderType() {
 		return orderType;

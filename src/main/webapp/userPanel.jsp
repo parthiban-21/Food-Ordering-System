@@ -30,14 +30,12 @@
 
 <div class="split right">
 <div class="table">
-<label class="formhead">Your Cart</label>
 <table>
-<caption>User Cart</caption>
+<caption class="table-head">Your Cart</caption>
 		<tr>
 			<th>Name</th>
 			<th colspan="3">Quantity</th>
 			<th>Price</th>
-			
 		</tr>
 		<c:forEach var="cart" items="${cartDetails}">
 		<c:set var="total" value="${0}"/>
@@ -49,17 +47,22 @@
 			<td>${cart.quantity}</td>
 			<td><a href="/decQuantity?itemID=${cart.itemID}&itemQuantity=${cart.quantity}"><button class = "qty">-</button></a></td>
 			<td>${cart.totalPrice}</td>
+			<td><a href="/dropItem?userID=${id}&itemID=${cart.itemID}"><button class = "remove-cart">&#9747;</button></a></td>
 		</tr>
 		</c:forEach>
 	</table>
 	<br>
 	<label class="total">Total Price : Rs. ${grandTotal} /-</label>
 	</div>
+	<div class="user-address" id="show-address">
+	<p><b>Delivery Address:</b> ${address}</p>
+	<a href="userProfile.jsp">Edit Address</a>
+	</div>	
 	<div class="formbottom">
 	<form action="/confirmOrder">
-		<select name="orderType">
-			<option value="pickUp">Pick-Up</option>
-			<option value="delivery" selected="selected">Delivery</option>
+		<select name="orderType" onchange="showAddress('show-address',this)">
+			<option value="pickUp" selected="selected">Pick-Up</option>
+			<option value="delivery">Delivery</option>
 		</select>
 		<input type="submit" class="confirmBtn" value="Confirm Order">
 	</form>
@@ -84,11 +87,16 @@
 					<p class="menu-price">Rs.${menu.itemPrice} /-</p>
 					<a href="/addToCart?userID=${id}&itemID=${menu.itemID}"><button class="add-btn" onclick='this.disabled = true;'>Add to Cart</button></a>
 				</div>
-			</div>
+			 </div>
 		</div>
 	</c:forEach>
 </div>
 </div>
 </div>
+<script type="text/javascript">
+function showAddress(divId, element) {
+	document.getElementById(divId).style.display = element.value == 'delivery' ? 'block' : 'none';
+}
+</script>
 </body>
 </html>

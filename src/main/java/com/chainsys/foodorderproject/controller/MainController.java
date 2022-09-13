@@ -1,7 +1,6 @@
 package com.chainsys.foodorderproject.controller;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -9,12 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chainsys.foodorderproject.dao.AdminDAO;
@@ -60,9 +55,17 @@ public class MainController {
 	@Autowired
 	UserValidation userValidation;
 	
-	List<User> UserInfo;
+	List<User> userInfo;
 	List<Menu> menuInfo;
 	List<Cart> cartInfo;
+	
+	//Redirection
+	String adminHome = "/admin";
+	String userHome = "/user";
+	String loginPage = "login.jsp";
+	
+	String errorMessage = "errMsg";
+	String menuDetails = "menuDetails";
 	
 	//Login or Sign-In
 	@GetMapping("/signIn")
@@ -72,18 +75,18 @@ public class MainController {
 		
 		//Admin Login
 		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPassword())) {
-			return "/admin";
+			return adminHome;
 		}
 		else {
 			//User Login
 			if(userDAO.checkLogin(mailID, password)) {
-				UserInfo = userDAO.getUserDetails(mailID, password);
-				model.addAttribute("userDetails",UserInfo);
-				return "/user";
+				userInfo = userDAO.getUserDetails(mailID, password);
+				model.addAttribute("userDetails",userInfo);
+				return userHome;
 			}
 			else {
-				model.addAttribute("errMsg", "Invalied Login");
-				return "login.jsp";
+				model.addAttribute(errorMessage, "Invalied Login");
+				return loginPage;
 			}
 		}
 	}
@@ -92,7 +95,7 @@ public class MainController {
 	@GetMapping("/admin")
 	public String admin(Model model) {
 		menuInfo = adminDAO.getAllMenuDetails();
-		model.addAttribute("menuDetails",menuInfo);
+		model.addAttribute(menuDetails,menuInfo);
 		return "adminPanel.jsp";
 	}
 	
@@ -100,8 +103,8 @@ public class MainController {
 	@GetMapping("/user")
 	public String user(Model model) {
 		menuInfo = userDAO.getMenuDetails();
-		model.addAttribute("menuDetails",menuInfo);
-		cartInfo = userDAO.getCart(UserInfo.get(0).getId());
+		model.addAttribute(menuDetails,menuInfo);
+		cartInfo = userDAO.getCart(userInfo.get(0).getId());
 		model.addAttribute("cartDetails", cartInfo);
 		return "userPanel.jsp";
 	}
@@ -110,8 +113,8 @@ public class MainController {
 	@GetMapping("/searchItem")
 	public String searchItem(@RequestParam("itemName") String itemName,Model model) {
 		menuInfo = userDAO.getMenuDetails(itemName);
-		model.addAttribute("menuDetails",menuInfo);
-		cartInfo = userDAO.getCart(UserInfo.get(0).getId());
+		model.addAttribute(menuDetails,menuInfo);
+		cartInfo = userDAO.getCart(userInfo.get(0).getId());
 		model.addAttribute("cartDetails", cartInfo);
 		return "userPanel.jsp";
 	}
@@ -121,48 +124,59 @@ public class MainController {
 	public String logout() {
 		signInDTO.setUserMailID(null);
 		signInDTO.setPassword(null);
-		return "login.jsp";
+		return loginPage;
 	}
 	
 	//User Sign-Up
 	@PostMapping("/signUp")
 	public String signUp(@RequestParam("name") String name,@RequestParam("emailID") String mailID,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password,Model model) {
 		signUpDTO.setUserName(name);
-		signUpDTO.setUserPhoneNo(phoneNo);
 		signUpDTO.setUserAddress(address);
 		signUpDTO.setUserPassword(password);
-		if(userValidation.checkMailID(mailID)) {
-			signUpDTO.setUserMailID(mailID);
-			mainService.signUpService(signUpDTO);
-			return "login.jsp";
+		int check=0;
+		if(userValidation.checkMobileNumber(phoneNo)) {
+			signUpDTO.setUserPhoneNo(phoneNo);
+			check+=1;
 		}
 		else {
-			model.addAttribute("errMsg", " * Mail-ID Already Exists, Try Other");
-			return "signup.jsp";
+			model.addAttribute("errMsgPhoneNumber", " * Phone Number Already Exists, Try Other");
 		}
+		if(userValidation.checkMailID(mailID)) {
+			signUpDTO.setUserMailID(mailID);
+			check+=1;
+		}
+		else {
+			model.addAttribute(errorMessage, " * Mail-ID Already Exists, Try Other");
+		}
+		if(check==2) {
+			mainService.signUpService(signUpDTO);
+			return loginPage;
+		}
+		else
+			return "signup.jsp";
 	}
 	
 	//Update User Info
-	@PostMapping("/updateInfo")
+	@GetMapping("/updateInfo")
 	public String updateInfo(@RequestParam("name") String name,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password) {
 		mainDTO.setUserName(name);
 		mainDTO.setUserPhoneNo(phoneNo);
 		mainDTO.setUserAddress(address);
 		mainDTO.setUserPassword(password);
-		mainService.updateService(UserInfo,mainDTO);
-		return "/user";
+		mainService.updateService(userInfo,mainDTO);
+		return "/logout";
 	}
 	
 	//Forgot Password - User
 	@PostMapping("/forgotPassword")
 	public String forgotPassword(@RequestParam("emailID") String mailID,@RequestParam("password") String password,Model model) {
 		if(userValidation.checkMailID(mailID)) {
-			model.addAttribute("errMsg", "No Mail-ID Found");
+			model.addAttribute(errorMessage, "No Mail-ID Found");
 			return "forgotPassword.jsp";
 		}
 		else {
 			userDAO.forgotPassword(mailID, password);
-			return "login.jsp";
+			return loginPage;
 		}
 	}
 	
@@ -179,7 +193,7 @@ public class MainController {
         byte[] images = fin.readAllBytes();
         menuDTO.setMenuImg(images);
         mainService.menuService(menuDTO);
-		return "/admin";
+		return adminHome;
 	}
 	
 	//Edit Item
@@ -189,16 +203,8 @@ public class MainController {
 		menuDTO.setMenuType(itemType);
 		menuDTO.setMenuPrice(itemPrice);
 		mainService.editItemService(itemID,menuDTO); 
-		return "/admin";
+		return adminHome;
 	}
-//	
-//	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-//	@ResponseBody
-//	public String deleteMenu(@PathVariable("id") int menuID) {
-//		dao.deleteMenu(menuID);
-//		System.out.println("Delete MenuID: "+menuID);
-//		return "Deleted Successfully";
-//	}
 	
 	//Delete Item - Admin
 	@GetMapping("/delete")
@@ -210,28 +216,28 @@ public class MainController {
 	//Confirms Items in CART
 	@GetMapping("/confirmOrder")
 	public String confirmOrder(@RequestParam("orderType") String orderType) {
-		int userID=UserInfo.get(0).getId();
+		int userID=userInfo.get(0).getId();
 		userDAO.confirmOrder(userID,orderType);
-		return "/user";
+		return userHome;
 	}
 	
 	//Increase Quantity in CART
 	@GetMapping("/incQuantity")
 	public String incQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity) {
-		int userID=UserInfo.get(0).getId();
+		int userID=userInfo.get(0).getId();
 		userDAO.incQuantity(userID,itemID,itemQuantity);
-		return "/user";
+		return userHome;
 	}
 	
 	//Decrease Quantity in CART
 	@GetMapping("/decQuantity")
 	public String decQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity,Model model) {
-		int userID=UserInfo.get(0).getId();
+		int userID=userInfo.get(0).getId();
 		if(userValidation.checkItemQuantity(userID, itemID,itemQuantity))
 			userDAO.decQuantity(userID,itemID,itemQuantity);
 		else
-			model.addAttribute("errMsg", "Item Cannot be Less than 1");
-		return "/user";
+			model.addAttribute(errorMessage, "Item Cannot be Less than 1");
+		return userHome;
 	}
 	
 	//Add item to CART
@@ -240,20 +246,28 @@ public class MainController {
 		if(userValidation.isItemInCart(itemID, userID))
 			userDAO.addToCart(userID, itemID);
 		else
-			model.addAttribute("errMsg", "Already in Cart");
-		return "/user";
+			model.addAttribute(errorMessage, "Already in Cart");
+		return userHome;
 	}
 	
-	//Cancel Order
+	//Drop All Item from Cart
 	@GetMapping("/dropAll")
 	public String dropAll(@RequestParam("userID") int userID) {
 		userDAO.dropAllItems(userID);
-		return "/user";
+		return userHome;
 	}
+	
+	//Drop Item from Cart
+	@GetMapping("/dropItem")
+	public String dropItem(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID) {
+		userDAO.dropItem(userID, itemID);
+		return userHome;
+	}
+	
 	
 	@GetMapping("/orders")
 	public String getUserOrders(Model model){
-		int userID=UserInfo.get(0).getId();
+		int userID=userInfo.get(0).getId();
 		List<Orders> orderInfo = userDAO.getUserOrders(userID);
 		model.addAttribute("orderDetails",orderInfo);
 		List<Orders> completedOrders = userDAO.getCompletedOrders(userID);

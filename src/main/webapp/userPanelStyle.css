@@ -135,10 +135,11 @@ td{
 	height: 350px; width: 280px;
 }
 .menu img{
-	position:absolute;
-	z-index:0;
-	opacity:.3;
-	height: 280px; width: 280px;
+	position: static;
+	z-index:1;
+	opacity:.9;
+	height: 250px; width: 280px;
+	border-radius: 20px 20px 0px 0px;
 }
 .grad{
 	background-image: linear-gradient(to top, rgba(0,0,0,.1), rgba(255,255,255,0));
@@ -152,7 +153,7 @@ td{
 }
 .menu-name{
 	z-index:2;
-	margin-top:92%;
+	margin-top:10px;
 	letter-spacing:3px;
 	font-family: fantasy;
 	font-size: 25px;
@@ -160,7 +161,7 @@ td{
 	margin-left: 15px;
 }
 .menu-price{
-	z-index:2;
+	z-index: 2;
 	font-size: 18px;
 	font-family: monospace;
 	font-weight: bold;
@@ -197,10 +198,15 @@ td{
 	width:auto;
 	border: 1.5px dashed rgba(255, 99, 71, 0.8);
 }
+.table-head{
+	font-size: 20px;
+	font-weight: bold;
+}
 .formhead{
 	display: flex;
 	flex-direction:column;
 	align-items: center;
+	justify-content: center;
 	font-size: 20px;
 	padding-bottom: 12px;
 	font-family:monospace;
@@ -213,6 +219,7 @@ td{
 	align-items: center;
 }
 .menubottom{
+	margin: 0px;
 	display:flex;
 	flex-direction:row;
 	justify-content: flex-start;
@@ -260,6 +267,16 @@ td{
 }
 .qty:hover{
 	border: .11px solid rgba(255,0,0,1);
+}
+.remove-cart{
+	border: 0px solid rgba(0,0,0,.5);
+	background-color:  rgba(255,255,255,1);
+	cursor: pointer;
+	color: black;
+	font-size: 16px;
+}
+.remove-cart:hover{
+	color: red;
 }
 .add-btn{
 	z-index:2;
@@ -326,4 +343,10 @@ td{
 }
 .cancelBtn:hover {
 	background-color: rgba(255, 100, 71, 0.7);
+}
+.user-address{
+	display: none;
+	font-family: monospace;
+	font-size: 16px;
+	margin-left: 20px;
 }

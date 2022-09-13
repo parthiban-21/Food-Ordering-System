@@ -52,52 +52,36 @@ public class UserDAO {
 	public List<User> getUserDetails(String mailID,String password){
 		String getUserDetailQuery = "select CUSTOMER_ID,CUSTOMER_NAME,MAIL_ID,PHONE_NO,ADDRESS,PASSWORD from CUSTOMER where MAIL_ID=? and PASSWORD=?";
 		Object[] userData = {mailID,password};
-		List<User> userDetails = jdbcTemplate.query(getUserDetailQuery,new UserMapper(),userData);
-		return userDetails;
+		return jdbcTemplate.query(getUserDetailQuery,new UserMapper(),userData);
 	}
 
 	//Checks User Available or Not 
-	public Boolean checkLogin(String mailID,String password) {
+	public boolean checkLogin(String mailID,String password) {
 		String checkUserQuery = "select CUSTOMER_ID from CUSTOMER where MAIL_ID=? and PASSWORD=?";
 		Object[] userData = {mailID,password};
-		int userID = 0;
 		try {
-			userID = jdbcTemplate.queryForObject(checkUserQuery,int.class,userData);
+			jdbcTemplate.queryForObject(checkUserQuery,int.class,userData);
 			return true;
 		}
 		catch(Exception e) {
 			return false;
 		}
 	}
-	/*
-	//Check Mail-ID Exist or Not
-	public Boolean checkMailID(String mailID) {
-		String query = "select CUSTOMER_ID from CUSTOMER where MAIL_ID=?";
-		Object[] val = {mailID};
-		int userID=0;
-		try {
-			userID = jdbc.queryForObject(query,int.class,val);
-			return true;
-		}
-		catch(Exception e) {
-			return false;
-		}
-	}*/
 
 	//Gets all Menu Details By Time
 	public List<Menu> getMenuDetails(){
-		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_TYPE=? or ITEM_TYPE=?";
+		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_TYPE=? or ITEM_TYPE='snacks'";
 		String time = getTime();
-		Object[] values = {time,"snacks"};
+		Object[] values = {time};
 		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 		return menuDetails;
 	}
 	
 	//Gets Item Details By Name & Time
 	public List<Menu> getMenuDetails(String itemName){
-		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_NAME=? and (ITEM_TYPE=? or ITEM_TYPE=?)";
+		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_NAME=? and (ITEM_TYPE=? or ITEM_TYPE='snacks')";
 		String time = getTime();
-		Object[] values = {itemName,time,"snacks"};
+		Object[] values = {itemName,time};
 		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 		return menuDetails;
 	}
@@ -121,18 +105,18 @@ public class UserDAO {
 
 	//Display Cart
 	public List<Cart> getCart(int userID) {
-		String getCartQuery = "select CART.CUSTOMER_ID,CART.ITEM_ID,CART.QUANTITY,CART.ORDER_STATUS,CART.ORDER_TYPE,MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_id where CUSTOMER_ID=? and ORDER_STATUS=?";
-		Object[] values = {userID,"In Cart"};
-		List<Cart> cartDetails = jdbcTemplate.query(getCartQuery,new CartMapper(),values);
-		return cartDetails;
+		String getCartQuery = "select CART.CUSTOMER_ID,CART.ITEM_ID,CART.QUANTITY,CART.ORDER_STATUS,CART.ORDER_TYPE,MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_id where CUSTOMER_ID=? and ORDER_STATUS='In Cart'";
+		Object[] values = {userID};
+		return jdbcTemplate.query(getCartQuery,new CartMapper(),values);
+		
 	}
 
 	//Update Confirm Order
 	public void confirmOrder(int userID,String orderType) {
-		String confirmOrderQuery = "update CART set ORDER_STATUS=?,ORDER_TYPE=?,ORDER_ID=?,ORDER_DATE=? where CUSTOMER_ID=? and ORDER_STATUS=?";
+		String confirmOrderQuery = "update CART set ORDER_STATUS='Confirmed',ORDER_TYPE=?,ORDER_ID=?,ORDER_DATE=? where CUSTOMER_ID=? and ORDER_STATUS='In Cart'";
 		LocalDate today = LocalDate.now();
 		String orderID = generateOrderID(userID, today);
-		Object[] values = {"Confirmed",orderType,orderID,today,userID,"In Cart"};
+		Object[] values = {orderType,orderID,today,userID};
 		jdbcTemplate.update(confirmOrderQuery,values);
 		List<Orders> orderDetails = getConfirmedOrder(userID, orderID); //Gets all Confirmed Order
 		insertOrder(orderDetails);// Inserts Confirmed Order into Order Table
@@ -152,7 +136,7 @@ public class UserDAO {
 	}
 
 	//Check OrderID Exists or Not
-	public Boolean checkOrderID(String orderID) {
+	public boolean checkOrderID(String orderID) {
 		String checkOrderIDQuery = "select ORDER_ID from CART where ORDER_ID=?";
 		Object[] id = {orderID};
 		try {
@@ -170,24 +154,24 @@ public class UserDAO {
 	
 	//Update Item Quantity - Increase
 	public void incQuantity(int userID,int itemID,int itemQuantity) {
-		String upadateQuatityQuery = "update CART set QUANTITY=? where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS=?";
+		String upadateQuatityQuery = "update CART set QUANTITY=? where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
 		itemQuantity+=1;
-		Object[] values = {itemQuantity,userID,itemID,"In Cart"};
+		Object[] values = {itemQuantity,userID,itemID};
 		jdbcTemplate.update(upadateQuatityQuery,values);
 	}
 	
 	//Update Item Quantity - Decrease
 	public void decQuantity(int userID,int itemID,int itemQuantity) {
-		String upadateQuatityQuery = "update CART set QUANTITY=? where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS=?";
+		String upadateQuatityQuery = "update CART set QUANTITY=? where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
 		itemQuantity-=1;
-		Object[] values = {itemQuantity,userID,itemID,"In Cart"};
+		Object[] values = {itemQuantity,userID,itemID};
 		jdbcTemplate.update(upadateQuatityQuery,values);
 	}
 	
 	//Add item to CART
 	public void addToCart(int userID,int itemID) {
-		String addToCartQuery = "insert into CART(CUSTOMER_ID,ITEM_ID,QUANTITY,ORDER_STATUS) values(?,?,?,?)";
-		Object[] values = {userID,itemID,1,"In Cart"};
+		String addToCartQuery = "insert into CART(CUSTOMER_ID,ITEM_ID,QUANTITY,ORDER_STATUS) values(?,?,?,'In Cart')";
+		Object[] values = {userID,itemID,1};
 		jdbcTemplate.update(addToCartQuery,values);
 	}
 	
@@ -212,15 +196,15 @@ public class UserDAO {
 	
 	//Drop all Item from Cart
 	public void dropAllItems(int userID) {
-		String dropOrderQuery = "update CART set ORDER_STATUS=? where CUSTOMER_ID=? and ORDER_STATUS=?";
-		Object[] values = {"Dropped",userID,"In Cart"};
+		String dropOrderQuery = "update CART set ORDER_STATUS='Dropped' where CUSTOMER_ID=? and ORDER_STATUS='In Cart'";
+		Object[] values = {userID};
 		jdbcTemplate.update(dropOrderQuery,values);
 	}
 	
 	//Drop Item from Cart*
 	public void dropItem(int userID,int itemID) {
-		String dropOrderQuery = "update CART set ORDER_STATUS=? where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS=?";
-		Object[] values = {"Dropped",userID,itemID,"In Cart"};
+		String dropOrderQuery = "update CART set ORDER_STATUS='Dropped' where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
+		Object[] values = {userID,itemID};
 		jdbcTemplate.update(dropOrderQuery,values);
 	}
 	
@@ -228,24 +212,21 @@ public class UserDAO {
 	public List<Orders> getUserOrders(int userID){
 		String getUserOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and ORDER_STATUS='Order Placed'";
 		Object[] id = {userID};
-		List<Orders> userOrderDetails = jdbcTemplate.query(getUserOrderQuery,new OrderMapper(), id);
-		return userOrderDetails;
+		return jdbcTemplate.query(getUserOrderQuery,new OrderMapper(), id);
 	}
 	
 	//Get User Orders
 	public List<Orders> getCompletedOrders(int userID){
 		String getCompletedOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and ORDER_STATUS='Completed'";
 		Object[] id = {userID};
-		List<Orders> userOrderDetails = jdbcTemplate.query(getCompletedOrderQuery,new OrderMapper(), id);
-		return userOrderDetails;
+		return jdbcTemplate.query(getCompletedOrderQuery,new OrderMapper(), id);
 	}
 	
 	//Get User Order Details
 	public List<Cart> getOrderItemDetails(String orderID){
 		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
 		Object[] id = {orderID};
-		List<Cart> userOrderItems = jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
-		return userOrderItems;
+		return jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
 	}
 	
 	//Cancel Order
