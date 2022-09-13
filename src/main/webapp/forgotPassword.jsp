@@ -19,21 +19,12 @@
 		<input type="password" name="password" id = "show-Password" class="input" placeholder="Enter New Password" 
 		pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Invalied Password" required><br>
 		<div>
-		<input type="checkbox" onclick="show()"><label class="show-password">Show Password</label>
+		<input type="checkbox" onclick="showPassword();"><label class="show-password">Show Password</label>
 		</div>
 		<input type="submit" class="button" value="Update">
 	</form>
 	<label class="errorLabel">${errMsg}</label>
 </div>
-<script type="text/javascript">
-function show() {
-	let x = document.getElementById("show-Password");
-	if (x.type === "password") {
-		x.type = "text";
-	} else {
-		x.type = "password";
-	}
-}
-</script>
+<script src="./script/UserJavaScript.js"></script>
 </body>
 </html>

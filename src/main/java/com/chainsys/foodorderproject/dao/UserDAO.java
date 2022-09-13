@@ -73,8 +73,7 @@ public class UserDAO {
 		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_TYPE=? or ITEM_TYPE='snacks'";
 		String time = getTime();
 		Object[] values = {time};
-		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
-		return menuDetails;
+		return jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 	}
 	
 	//Gets Item Details By Name & Time
@@ -82,8 +81,7 @@ public class UserDAO {
 		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_NAME=? and (ITEM_TYPE=? or ITEM_TYPE='snacks')";
 		String time = getTime();
 		Object[] values = {itemName,time};
-		List<Menu> menuDetails = jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
-		return menuDetails;
+		return jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 	}
 
 	//Get Date
@@ -139,17 +137,11 @@ public class UserDAO {
 	public boolean checkOrderID(String orderID) {
 		String checkOrderIDQuery = "select ORDER_ID from CART where ORDER_ID=?";
 		Object[] id = {orderID};
-		try {
-			List<Cart> availableID = jdbcTemplate.query(checkOrderIDQuery,new OrderIDMapper(),id);
-			if(availableID.size()==0) {
-				return false;//Required
-			}
-			else
-				return true;
-		}
-		catch(Exception e) {
+		List<Cart> availableID = jdbcTemplate.query(checkOrderIDQuery,new OrderIDMapper(),id);
+		if(availableID.isEmpty()) 
+			return false;//Required
+		else 
 			return true;
-		}
 	}
 	
 	//Update Item Quantity - Increase
@@ -179,8 +171,7 @@ public class UserDAO {
 	public List<Orders> getConfirmedOrder(int userID,String orderID) {
 		String getOrderQuery="select CART.ORDER_ID,CART.CUSTOMER_ID,CART.ITEM_ID,MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.ORDER_TYPE, CART.ORDER_DATE,CART.ORDER_STATUS,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CUSTOMER_ID=? and ORDER_ID=?";
 		Object[] values = {userID,orderID};
-		List<Orders> orderDetail = jdbcTemplate.query(getOrderQuery,new ConfirmedOrderMapper(),values);
-		return orderDetail;
+		return jdbcTemplate.query(getOrderQuery,new ConfirmedOrderMapper(),values);
 	}
 	
 	//Insert Order

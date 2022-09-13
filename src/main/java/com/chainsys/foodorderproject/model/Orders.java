@@ -47,17 +47,18 @@ public class Orders {
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+	
 	public String getOrderType() {
 		return orderType;
 	}
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public String getOrderStatus() {
 		return orderStatus;

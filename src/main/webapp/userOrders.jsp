@@ -24,7 +24,7 @@
 <div class="split right">
 	<div id="order-details" class="form">
 	<table class="table-details">
-		<caption>Order Item Details</caption>
+		<caption class="table-head">Order Details</caption>
 		<tr>
 		<th>Name</th>
 		<th>Quantity</th>
@@ -44,7 +44,7 @@
 		</c:forEach>
 		<tr>
 		<td colspan="3">Total Price</td>
-		<td>Rs: ${grandTotal}</td>
+		<td><strong>&#8377; ${grandTotal}</strong></td>
 		</tr>
 	</table>
 	
@@ -52,9 +52,8 @@
 </div>
 <div class="Split left">
 		<div class="tab" id="tab">
-	<label class="formhead">Your Orders</label>
 	<table class="order-table">
-	<caption>User Order Details</caption>
+	<caption class="table-head">Your Orders</caption>
 		<tr>
 			<th>Order ID</th>
 			<th>Order Date</th>
@@ -84,20 +83,5 @@
 	</c:forEach>
 </div>
 </div>
-<script type="text/javascript">
-	
-	function myFunction(d) {
-		d.preventDefault();
-		var x = document.getElementById("order-details");
-		var y = document.getElementById("tab");
-		if (x.style.display === "none") {
-			x.style.display = "flex";
-			y.style.width = "75%";
-		} else {
-			x.style.display = "none";
-			y.style.width = "96.6%";
-		}
-	}
-</script>
 </body>
 </html>

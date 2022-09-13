@@ -162,6 +162,10 @@ tr:hover{
 	height:auto;
 	width:65%;
 }
+.table-head{
+	font-size: 20px;
+	font-weight: bold;
+}
 .completed-section{
 	display: grid;
 	grid-template-columns: auto auto auto;

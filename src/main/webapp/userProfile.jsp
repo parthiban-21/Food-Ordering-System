@@ -24,10 +24,9 @@
 
 <div class="split left">
 <div class="table">
-<label class="formhead">Your Details</label>
 <img class="profile" alt="Profile Picture" src="images/profilePicture.png">
 <table>
-<caption>User Details</caption>
+<caption class="table-head">Your Details</caption>
 		<tr>
 			<th>Name: </th>
 			<td>${userName}</td>
@@ -75,22 +74,6 @@
 	<div class="formbottom"><button class="button" onclick="myFunction();">Edit</button></div>
 </div>
 </div>
-<script type="text/javascript">
-
-	function myFunction() {
-		let name = document.getElementById("edit-name");
-		let phoneNumber = document.getElementById("edit-phoneNumber");
-		let address = document.getElementById("edit-addresss");
-		let password = document.getElementById("edit-password");
-		let submit = document.getElementById("edit-submit");
-		if (submit.disabled === true) {
-			name.disabled = false;
-			phoneNumber.disabled = false;
-			address.disabled = false;
-			password.disabled = false;
-			submit.disabled = false;
-		}
-	}
-</script>
+<script src="./script/UserJavaScript.js"></script>
 </body>
 </html>

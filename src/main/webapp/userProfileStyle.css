@@ -47,8 +47,7 @@ tr:hover{
 	background-color: rgba(255, 99, 71, 0.1);
 }
 .profile{
-	align-items: center;
-	margin-left: 20%;
+	
 	border-radius: 200px;
 	width:200px; height:160px
 }
@@ -132,6 +131,10 @@ tr:hover{
 	}
 	
 .table{
+	display: flex;
+	flex-direction:column;
+	justify-content: flex-start;
+	align-items: center;
 	padding: 20px;
 	margin-top:20px;
 	margin-bottom:0%;
@@ -154,6 +157,10 @@ tr:hover{
 	height:480px;
 	width:auto;
 	border: 1.5px dashed rgba(255, 99, 71, 0.8);
+}
+.table-head{
+	font-size: 20px;
+	font-weight: bold;
 }
 .formhead{
 	display: flex;

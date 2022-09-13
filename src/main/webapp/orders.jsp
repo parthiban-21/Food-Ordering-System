@@ -42,7 +42,7 @@
 		</c:forEach>
 		<tr>
 		<td colspan="3">Total Price</td>
-		<td>Rs: ${grandTotal}</td>
+		<td>&#8377; ${grandTotal}</td>
 		</tr>
 	</table>
 	

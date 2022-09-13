@@ -9,21 +9,23 @@ public class MainDTO {
 	private String userName;
 	private String userPhoneNo;
 	private String userMailID;
-	private String userAddress;
 	private String userPassword;
+	private String userAddress;
 
-	public int getUserID() {
-		return userID;
-	}
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+	
 	public String getUserPhoneNo() {
 		return userPhoneNo;
 	}

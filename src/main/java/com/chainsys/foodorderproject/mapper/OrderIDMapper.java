@@ -2,7 +2,6 @@ package com.chainsys.foodorderproject.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.RowMapper;
 

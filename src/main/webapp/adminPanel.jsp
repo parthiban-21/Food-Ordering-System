@@ -75,22 +75,5 @@
 </form>
 </div>
 </div>
-<script type="text/javascript">
-	function myFunction() {
-		var x = document.getElementById("item-input");
-		var i;
-		for(i=0;x.length; i++){
-			if(x[i].disabled === true){
-				x[i].disabled = false;
-			}
-		}
-	}
-	function enable(id){
-        var cont=id.querySelectorAll('.inactive');
-        for(let i = 0; i < cont.length; i++){
-            cont[i].classList.add('active');
-        }
-    }
-</script>
 </body>
 </html>

@@ -55,16 +55,14 @@ public class AdminDAO {
 	//Get Orders - Completed
 	public List<Orders> getCompletedOrders() {
 		String getOrdersQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where ORDER_STATUS='Completed'";
-		List<Orders> orderDetails = jdbcTemplate.query(getOrdersQuery,new OrderMapper());
-		return orderDetails;
+		return jdbcTemplate.query(getOrdersQuery,new OrderMapper());
 	}
 	
 	//Get User Order Details
 	public List<Cart> getOrderItemDetails(String orderID){
 		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
 		Object[] id = {orderID};
-		List<Cart> userOrderItems = jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
-		return userOrderItems;
+		return jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
 	}
 	
 	//Update Order Status

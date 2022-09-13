@@ -24,12 +24,10 @@ public class UserValidation {
 		String getMailIDQuery = "select MAIL_ID,PHONE_NO from CUSTOMER where MAIL_ID=?";
 		Object[] value = {mailID};
 		List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
-		if(id.isEmpty()) {
+		if(id.isEmpty()) 
 			return true;//Required
-		}
-		else {
+		else 
 			return false;
-		}
 	}
 	
 	//Check Mobile Number Exist or Not*
@@ -37,12 +35,10 @@ public class UserValidation {
 		String getMailIDQuery = "select MAIL_ID,PHONE_NO from CUSTOMER where PHONE_NO=?";
 		Object[] value = {mobileNumber};
 		List<User> id = jdbcTemplate.query(getMailIDQuery,new MailIDMapper(),value);
-		if(id.isEmpty()) {
+		if(id.isEmpty()) 
 			return true; //Required
-		}
-		else {
+		else 
 			return false;
-		}
 	}
 	
 	//Check ItemID in Cart
@@ -65,7 +61,7 @@ public class UserValidation {
 	}
 
 	public boolean checkName(String name) {
-		String userPattern = "^(?!.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		String userPattern = "^(?!.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(name);
 		return match.matches();
@@ -73,10 +69,7 @@ public class UserValidation {
 
 	//Validate Mail-ID
 	public boolean checkEmailID(String mailID) {
-		String userPattern = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-				"[a-zA-Z0-9_+&*-]+)*@" +
-				"(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-				"A-Z]{2,7}$";
+		String userPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(mailID);
 		return match.matches();
@@ -84,7 +77,7 @@ public class UserValidation {
 
 	//Validate Phone Number
 	public boolean checkPhoneNo(String phoneNo) {
-		String userPattern = "^(0/91)?[7-9][0-9]{9}$";
+		String userPattern = "^(0/91)?[7-9]\\d{9}$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(phoneNo);
 		return match.matches();
@@ -92,7 +85,7 @@ public class UserValidation {
 
 	//Validate Address 
 	public boolean checkAddress(String address) {
-		String userPattern = "^(?!.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		String userPattern = "^(?!.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(address);
 		return match.matches();
@@ -100,7 +93,7 @@ public class UserValidation {
 	
 	//Validate Password 
 	public boolean checkPassword(String password) {
-		String userPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
+		String userPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{4,20}$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(password);
 		return match.matches();

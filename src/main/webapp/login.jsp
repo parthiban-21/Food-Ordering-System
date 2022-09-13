@@ -38,15 +38,6 @@
 	<label class="errorLabel">${errMsg}</label>
 </div>
 </div>
-<script>
-function showPassword() {
-	let x = document.getElementById("show-Password");
-	if (x.type === "password") {
-		x.type = "text";
-	} else {
-		x.type = "password";
-	}
-}
-</script>
+<script src="./script/UserJavaScript.js"></script>
 </body>
 </html>
