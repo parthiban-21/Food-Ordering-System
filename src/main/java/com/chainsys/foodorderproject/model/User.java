@@ -11,8 +11,8 @@ public class User {
 	private String address;
 	private String password;
 	
-	final  static private String adminMailID = "admin@gmail.com";
-	final static private String adminPassword = "Admin@123";
+	private static final String ADMINID = "admin@gmail.com";
+	private static final String ADMINPASSWORD = "Admin@123";
 	
 	public int getId() {
 		return id;
@@ -51,15 +51,15 @@ public class User {
 		this.password = password;
 	}
 	public String getAdminMailID() {
-		return adminMailID;
+		return ADMINID;
 	}
 	public String getAdminPassword() {
-		return adminPassword;
+		return ADMINPASSWORD;
 	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", mailID=" + mailID + ", phoneNumber=" + phoneNumber
-				+ ", address=" + address + ", password=" + password + ", adminMailID=" + adminMailID
-				+ ", adminPassword=" + adminPassword + "]";
+				+ ", address=" + address + ", password=" + password + ", adminMailID=" + ADMINID
+				+ ", adminPassword=" + ADMINPASSWORD + "]";
 	}
 }
