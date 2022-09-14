@@ -178,8 +178,12 @@ public class UserDAO {
 	public void insertOrder(List<Orders> userOrder) {
 		String insertOrderQuery = "insert into ORDERS (ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE) values(?,?,?,?,?,?)";
 		float grandTotal=0;
+		int deliveryCharge =25;
 		for(int i=0;i<userOrder.size();i++) {
 			grandTotal+=userOrder.get(i).getTotalPrice();
+		}
+		if(userOrder.get(0).getOrderType().equals("delivery")) {
+			grandTotal+=deliveryCharge;
 		}
 		Object[] val = {userOrder.get(0).getOrderID(),userOrder.get(0).getCustomerID(),userOrder.get(0).getOrderDate(),grandTotal,"Order Placed",userOrder.get(0).getOrderType()};
 		jdbcTemplate.update(insertOrderQuery,val);
@@ -192,7 +196,7 @@ public class UserDAO {
 		jdbcTemplate.update(dropOrderQuery,values);
 	}
 	
-	//Drop Item from Cart*
+	//Drop Item from Cart
 	public void dropItem(int userID,int itemID) {
 		String dropOrderQuery = "update CART set ORDER_STATUS='Dropped' where CUSTOMER_ID=? and ITEM_ID=? and ORDER_STATUS='In Cart'";
 		Object[] values = {userID,itemID};
@@ -215,7 +219,8 @@ public class UserDAO {
 	
 	//Get User Order Details
 	public List<Cart> getOrderItemDetails(String orderID){
-		String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
+		//String getOrderItemQuery = "select MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE as TOTAL from CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID where CART.ORDER_ID=?";
+		String getOrderItemQuery = "SELECT CUSTOMER.CUSTOMER_ID,CUSTOMER.CUSTOMER_NAME,CUSTOMER.ADDRESS,CUSTOMER.MAIL_ID,CUSTOMER.PHONE_NO,CART.ORDER_ID,CART.ITEM_ID,MENU.ITEM_NAME,MENU.ITEM_PRICE,CART.QUANTITY,CART.QUANTITY*MENU.ITEM_PRICE AS TOTAL FROM CART INNER JOIN MENU ON CART.ITEM_ID=MENU.ITEM_ID INNER JOIN CUSTOMER ON CART.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID WHERE CART.ORDER_ID=?";
 		Object[] id = {orderID};
 		return jdbcTemplate.query(getOrderItemQuery,new OrderItemMapper(), id);
 	}
@@ -225,5 +230,14 @@ public class UserDAO {
 		String cancelOrder = "delete from orders where order_id=?";
 		Object[] id = {orderID};
 		jdbcTemplate.update(cancelOrder,id);
+	}
+	
+	//Extract Pin Code
+	public int extractPincode(String address) {
+		String pinCode = "";
+		if (address.length() > 6) 
+		    pinCode = address.substring(address.length() - 6);
+		int code = Integer.parseInt(pinCode);
+		return code;
 	}
 }

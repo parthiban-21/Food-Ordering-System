@@ -22,7 +22,7 @@
 <div class="split right">
 	<div id="order-details" class="form">
 	<table class="table-details">
-	<caption>Order Item Details</caption>
+	<caption class="table-head">Order Item Details</caption>
 		<tr>
 		<th>Name</th>
 		<th>Quantity</th>
@@ -33,6 +33,15 @@
 		<c:set var="total" value="${0}"/>
 		<c:set var="temp" value="${OrderItems.totalPrice}"/>
 		<c:set var="grandTotal" value="${temp+grandTotal+total}"/>
+		<c:set var="charge" value="${0}"/>
+		<c:if test="${orderType eq 'delivery'}">
+			<c:set var="charge" value="${25}"/>
+		</c:if> 
+		
+		<c:set var="user" value="${OrderItems.userName}"/>
+		<c:set var="userAddress" value="${OrderItems.userAddress}"/>
+		<c:set var="userPhoneNumber" value="${OrderItems.userPhoneNumber}"/>
+		<c:set var="userMailID" value="${OrderItems.userMailID}"/>
 			<tr>
 			<td>${OrderItems.itemName}</td>
 			<td>${OrderItems.quantity}</td>
@@ -42,7 +51,28 @@
 		</c:forEach>
 		<tr>
 		<td colspan="3">Total Price</td>
-		<td>&#8377; ${grandTotal}</td>
+		<td>&#8377; ${grandTotal+charge}</td>
+		</tr>
+		<tr>
+			<td colspan="2">Type</td>
+			<td colspan="2"><strong>${orderType}</strong></td>
+		</tr>
+		<tr><th colspan="4">Customer Details</th></tr>
+		<tr>
+			<td colspan="2">Name:</td>
+			<td colspan="2">${user}</td>
+		</tr>
+		<tr>
+			<td colspan="2">Mail-ID:</td>
+			<td colspan="2">${userMailID}</td>
+		</tr>
+		<tr>
+			<td colspan="2">Phone Number:</td>
+			<td colspan="2">${userPhoneNumber}</td>
+		</tr>
+		<tr>
+			<td colspan="2">Address:</td>
+			<td colspan="2">${userAddress}</td>
 		</tr>
 	</table>
 	
@@ -50,9 +80,8 @@
 </div>
 <div class="Split left">
 	<div class="tab" id="tab">
-	<label class="formhead">Your Orders</label>
 	<table class="order-table">
-	<caption>Order Details</caption>
+	<caption class="table-head">Orders</caption>
 		<tr>
 			<th>Order ID</th>
 			<th>Order Date</th>
@@ -65,7 +94,7 @@
 				<td>${orders.orderDate}</td>
 				<td>${orders.orderType}</td>
 				<td>${orders.orderStatus}</td>
-				<td><a href="/userOrderItems?orderID=${orders.orderID}"><button class="viewBtn">View Order</button></a></td>
+				<td><a href="/userOrderItems?orderID=${orders.orderID}&orderType=${orders.orderType}"><button class="viewBtn">View Order</button></a></td>
 				<td><a href="/updateOrderStatus?orderID=${orders.orderID}"><button class="button">Update Status</button></a></td>
 				</tr>
 		</c:forEach>
@@ -77,7 +106,7 @@
 		<label>OrderID: ${completeOrders.orderID}</label>
 		<label>OrderDate: ${completeOrders.orderDate}</label>
 		<label class="completed">${completeOrders.orderStatus}</label>
-		<a href="/userOrderItems?orderID=${completeOrders.orderID}"><button class="viewBtn">View Order</button></a>
+		<a href="/userOrderItems?orderID=${completeOrders.orderID}&orderType=${completeOrders.orderType}"><button class="viewBtn">View Order</button></a>
 	</div>
 	</c:forEach>
 </div>

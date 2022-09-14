@@ -98,4 +98,14 @@ public class UserValidation {
 		Matcher match = pattern.matcher(password);
 		return match.matches();
 	}
+	
+	//Check Pin code
+	public boolean checkPincode(String pincode) {
+		int code = Integer.parseInt(pincode);  
+		if(code>=600001 && code<=602107) {
+			return true;
+		}
+		else
+			return false;
+	}
 }

@@ -63,7 +63,7 @@
 	
 	<label class="lable">Address</label>
 	<input type="text" name="address" id="edit-addresss" class="input" placeholder="Enter New Address" value="${address}"
-	pattern="^[#.0-9a-zA-Z\s,-]+$" title="Invalied Address" disabled="disabled" required><br>
+	pattern="^[#.0-9a-zA-Z\s,-]+[-\s]+[6][0-9]{5}$" title="Invalied Address" disabled="disabled" required><br>
 	
 	<label class="lable">Password</label>
 	<input type="password" name="password" id="edit-password" class="input" placeholder="Confirm Password" disabled="disabled" required><br>

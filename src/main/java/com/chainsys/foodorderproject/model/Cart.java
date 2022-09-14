@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class Cart {
 	private int userID;
+	private String userName;
+	private String userAddress;
+	private String userPhoneNumber;
+	private String userMailID;
 	private int itemID;
 	private String itemName;
 	private int quantity;
@@ -68,10 +72,36 @@ public class Cart {
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+	public String getUserPhoneNumber() {
+		return userPhoneNumber;
+	}
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
+	}
+	public String getUserMailID() {
+		return userMailID;
+	}
+	public void setUserMailID(String userMailID) {
+		this.userMailID = userMailID;
+	}
 	@Override
 	public String toString() {
-		return "Cart [userID=" + userID + ", menuID=" + itemID + ", menuName=" + itemName + ", quantity=" + quantity
-				+ ", orderType=" + orderType + ", orderStatus=" + orderStatus + ", perPrice=" + unitPrice
-				+ ", totalPrice=" + totalPrice + ", orderID=" + orderID + "]";
+		return "Cart [userID=" + userID + ", userName=" + userName + ", userAddress=" + userAddress
+				+ ", userPhoneNumber=" + userPhoneNumber + ", userMailID=" + userMailID + ", itemID=" + itemID
+				+ ", itemName=" + itemName + ", quantity=" + quantity + ", orderType=" + orderType + ", orderStatus="
+				+ orderStatus + ", unitPrice=" + unitPrice + ", totalPrice=" + totalPrice + ", orderID=" + orderID
+				+ "]";
 	}
 }

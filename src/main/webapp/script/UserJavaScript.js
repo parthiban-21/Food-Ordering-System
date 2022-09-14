@@ -9,10 +9,49 @@ function showPassword() {
 }
 
 //Display User Address
-function showAddress(divId, element) {
-	document.getElementById(divId).style.display = element.value == 'delivery' ? 'block' : 'none';
+function showAddress(divId, element,pincode) {
+
+//const pincode=document.getElementById('pincode').value;
+
+	
+	//document.getElementById(divId).style.display = element.value == 'delivery' ? 'block' : 'none';
+	let delivery = document.getElementById(divId);
+	let pickup = document.getElementById('pickup-total');
+	let y = document.getElementById('addressError');
+	let z = document.getElementById('confirmOrder');
+	if(element.value === 'delivery'){
+		if(checkPincode(pincode)){
+			delivery.style.display = 'block';
+			pickup.style.display = 'none';
+			y.style.display = 'none';
+		}
+		else{
+			delivery.style.display = 'block';
+			pickup.style.display = 'none';
+			y.style.display = 'block';
+			z.disabled = true;
+		}
+	}
+	else{
+		delivery.style.display = 'none';
+		pickup.style.display = 'block';
+		y.style.display = 'none';
+		z.disabled = false;
+	}
 }
 
+//check pincode
+function checkPincode(pincode){
+	const code = pincode;
+	if(code>=600001 && code<=602107) {
+		console.log("true");
+		return true;
+	}
+	else{
+		console.log("false");
+		return false;
+	}
+}
 //Edit
 function myFunction() {
 		let name = document.getElementById("edit-name");

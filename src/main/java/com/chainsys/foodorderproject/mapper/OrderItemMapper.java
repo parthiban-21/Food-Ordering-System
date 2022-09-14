@@ -16,6 +16,11 @@ public class OrderItemMapper implements RowMapper<Cart> {
 		cart.setUnitPrice(rs.getFloat("ITEM_PRICE"));
 		cart.setQuantity(rs.getInt("QUANTITY"));
 		cart.setTotalPrice(rs.getFloat("TOTAL"));
+		
+		cart.setUserName(rs.getString("CUSTOMER_NAME"));
+		cart.setUserAddress(rs.getString("ADDRESS"));
+		cart.setUserPhoneNumber(rs.getString("PHONE_NO"));
+		cart.setUserMailID(rs.getString("MAIL_ID"));
 		return cart;
 	}
 

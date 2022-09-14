@@ -287,3 +287,7 @@ tr:hover{
 .order-details{
 	display: block;
 }
+.user-address{
+	font-family: monospace;
+	font-size: 16px;
+}

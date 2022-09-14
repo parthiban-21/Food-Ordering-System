@@ -25,7 +25,7 @@
 		
 		<label class="lable">Address</label>
 		<input type="text" name="address" class="input" placeholder="Enter Your Address"
-		pattern="^[#.0-9a-zA-Z\s,-]+$" title="Invalied Address" required><br>
+		pattern="^[#.0-9a-zA-Z\s,-]+[-\s]+[6][0-9]{5}$" title="Invalied Address" required><br>
 		
 		<label class="lable">Email ID</label>
 		<label class="errorLabel">${errMsg}</label>

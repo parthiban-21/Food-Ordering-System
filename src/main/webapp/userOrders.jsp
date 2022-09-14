@@ -35,6 +35,10 @@
 		<c:set var="total" value="${0}"/>
 		<c:set var="temp" value="${OrderItems.totalPrice}"/>
 		<c:set var="grandTotal" value="${temp+grandTotal+total}"/>
+		<c:set var="charge" value="${0}"/>
+		<c:if test="${orderType eq 'delivery'}">
+			<c:set var="charge" value="${25}"/>
+		</c:if> 
 			<tr>
 			<td>${OrderItems.itemName}</td>
 			<td>${OrderItems.quantity}</td>
@@ -43,11 +47,14 @@
 			</tr>
 		</c:forEach>
 		<tr>
-		<td colspan="3">Total Price</td>
-		<td><strong>&#8377; ${grandTotal}</strong></td>
+			<td colspan="3">Total Price</td>
+			<td><strong>&#8377; ${grandTotal+charge}</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2">Type</td>
+			<td colspan="2"><strong>${orderType}</strong></td>
 		</tr>
 	</table>
-	
 	</div>
 </div>
 <div class="Split left">
@@ -66,7 +73,7 @@
 				<td>${orders.orderDate}</td>
 				<td>${orders.orderType}</td>
 				<td>${orders.orderStatus}</td>
-				<td><a href="/orderItems?orderID=${orders.orderID}"><button class="viewBtn">View Order</button></a></td>
+				<td><a href="/orderItems?orderID=${orders.orderID}&orderType=${orders.orderType}"><button class="viewBtn">View Order</button></a></td>
 				<td><a href="/cancelOrder?orderID=${orders.orderID}"><button class="button">Cancel Order</button></a></td>
 				</tr>
 		</c:forEach>
@@ -78,7 +85,7 @@
 		<label>OrderID: ${completeOrders.orderID}</label>
 		<label>OrderDate: ${completeOrders.orderDate}</label>
 		<label class="completed">${completeOrders.orderStatus}</label>
-		<a href="/orderItems?orderID=${completeOrders.orderID}"><button class="viewBtn">View Order</button></a>
+		<a href="/orderItems?orderID=${completeOrders.orderID}&orderType=${completeOrders.orderType}"><button class="viewBtn">View Order</button></a>
 	</div>
 	</c:forEach>
 </div>

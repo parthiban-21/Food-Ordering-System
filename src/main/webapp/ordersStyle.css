@@ -214,6 +214,10 @@ tr:hover{
 	font-family:monospace;
 	font-weight: bold;
 }
+.table-head{
+	font-size: 18px;
+	font-weight: bold;
+}
 .formbottom{
 	display: flex;
 	flex-direction:column;

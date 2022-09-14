@@ -102,10 +102,14 @@ public class MainController {
 	//User Home
 	@GetMapping("/user")
 	public String user(Model model) {
+		userInfo = userDAO.getUserDetails(userInfo.get(0).getMailID(), userInfo.get(0).getPassword());
+		model.addAttribute("userDetails",userInfo);
 		menuInfo = userDAO.getMenuDetails();
 		model.addAttribute(menuDetails,menuInfo);
 		cartInfo = userDAO.getCart(userInfo.get(0).getId());
 		model.addAttribute("cartDetails", cartInfo);
+		int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
+		model.addAttribute("userPincode", pincode);
 		return "userPanel.jsp";
 	}
 	
@@ -164,7 +168,7 @@ public class MainController {
 		mainDTO.setUserAddress(address);
 		mainDTO.setUserPassword(password);
 		mainService.updateService(userInfo,mainDTO);
-		return "/logout";
+		return userHome;
 	}
 	
 	//Forgot Password - User
@@ -215,10 +219,10 @@ public class MainController {
 	
 	//Confirms Items in CART
 	@GetMapping("/confirmOrder")
-	public String confirmOrder(@RequestParam("orderType") String orderType) {
+	public String confirmOrder(@RequestParam("orderType") String orderType,Model model) {
 		int userID=userInfo.get(0).getId();
 		userDAO.confirmOrder(userID,orderType);
-		return userHome;
+		return "/orders";
 	}
 	
 	//Increase Quantity in CART
@@ -276,9 +280,15 @@ public class MainController {
 	}
 	
 	@GetMapping("/orderItems")
-	public String getOrderItemDetail(@RequestParam("orderID") String orderID,Model model) {
+	public String getOrderItemDetail(@RequestParam("orderID") String orderID,@RequestParam("orderType") String orderType,Model model) {
 		List<Cart> orderItems = userDAO.getOrderItemDetails(orderID);
 		model.addAttribute("orderItemDetails", orderItems);
+		if(orderType.equals("delivery")) {
+			model.addAttribute("orderType", orderType);
+		}
+		else {
+			model.addAttribute("orderType", orderType);
+		}
 		return "/orders";
 	}
 	
@@ -299,9 +309,15 @@ public class MainController {
 	
 	//Admin
 	@GetMapping("/userOrderItems")
-	public String getUserOrderItemDetail(@RequestParam("orderID") String orderID,Model model) {
+	public String getUserOrderItemDetail(@RequestParam("orderID") String orderID,@RequestParam("orderType") String orderType,Model model) {
 		List<Cart> orderItems = adminDAO.getOrderItemDetails(orderID);
 		model.addAttribute("userOrderItemDetails", orderItems);
+		if(orderType.equals("delivery")) {
+			model.addAttribute("orderType", orderType);
+		}
+		else {
+			model.addAttribute("orderType", orderType);
+		}
 		return "/adminOrders";
 	}
 	
