@@ -88,8 +88,7 @@
 <label class="formhead">Dishes</label>
 <form action="/searchItem">
 	<input type="search" name="itemName" class="search-item" placeholder="Search" required>
-	<button type="submit" class="search-item-Btn"><i class="fa fa-search"></i></button>
-	<!-- <input type="submit" class="search-item-Btn"> -->
+	<button type="submit" class="search-item-Btn"><em class="fa fa-search"></em></button>
 </form>
 <div class="menu-section">
 	<c:forEach var="menu" items="${menuDetails}">

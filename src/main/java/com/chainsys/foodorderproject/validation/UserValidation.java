@@ -69,7 +69,7 @@ public class UserValidation {
 
 	//Validate Mail-ID
 	public boolean checkEmailID(String mailID) {
-		String userPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		String userPattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
 		Pattern pattern = Pattern.compile(userPattern);
 		Matcher match = pattern.matcher(mailID);
 		return match.matches();

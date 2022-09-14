@@ -11,8 +11,8 @@ public class User {
 	private String address;
 	private String password;
 	
-	final private String adminMailID = "admin@gmail.com";
-	final private String adminPassword = "Admin@123";
+	final  static private String adminMailID = "admin@gmail.com";
+	final static private String adminPassword = "Admin@123";
 	
 	public int getId() {
 		return id;
