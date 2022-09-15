@@ -5,8 +5,21 @@ let btn = document.getElementById("myBtn");
 
 let span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function() {
+let pickup = document.getElementById('pickup-total');
+
+/* btn.onclick = function() {
 	modal.style.display = "block";
+	pickup.style.display = 'block';
+}*/
+
+function buttonAction(price){
+	if(price!=0){
+		modal.style.display = "block";
+		pickup.style.display = 'block';
+	}
+	else{
+		alert("Add Some Item to Cart");
+	}
 }
 
 span.onclick = function() {

@@ -16,7 +16,7 @@
 	<div class="header-right">
 	<a href="/admin">Home</a>
 	<a class="active" href="/adminOrders">Orders</a>
-	<a href="login.jsp">Logout</a>
+	<a href="/logout">Logout</a>
 	</div>
 </div>
 <div class="split right">
@@ -50,8 +50,8 @@
 			</tr>
 		</c:forEach>
 		<tr>
-		<td colspan="3">Total Price</td>
-		<td>&#8377; ${grandTotal+charge}</td>
+		<td colspan="2">Total Price</td>
+		<td colspan="2">&#8377; ${grandTotal+charge}</td>
 		</tr>
 		<tr>
 			<td colspan="2">Type</td>

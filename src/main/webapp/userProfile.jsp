@@ -16,7 +16,7 @@
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
 	<a href="/user">Home</a>
-	<a href="userOrders.jsp">Order</a>
+	<a href="/orders">Order</a>
 	<a class="active" href="userProfile.jsp">Profile</a>
 	<a href="/logout">Logout</a>
 	</div>

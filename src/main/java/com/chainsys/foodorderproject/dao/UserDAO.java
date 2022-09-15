@@ -212,7 +212,7 @@ public class UserDAO {
 	
 	//Get User Orders
 	public List<Orders> getCompletedOrders(int userID){
-		String getCompletedOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and ORDER_STATUS='Completed'";
+		String getCompletedOrderQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where CUSTOMER_ID=? and (ORDER_STATUS='Completed' or ORDER_STATUS='Cancelled') order by ORDER_DATE desc";
 		Object[] id = {userID};
 		return jdbcTemplate.query(getCompletedOrderQuery,new OrderMapper(), id);
 	}
@@ -227,7 +227,7 @@ public class UserDAO {
 	
 	//Cancel Order
 	public void cancelOrder(String orderID) {
-		String cancelOrder = "delete from orders where order_id=?";
+		String cancelOrder = "update ORDERS set ORDER_STATUS='Cancelled' where order_id=?";
 		Object[] id = {orderID};
 		jdbcTemplate.update(cancelOrder,id);
 	}

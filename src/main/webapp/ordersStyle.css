@@ -72,9 +72,9 @@ tr:hover{
 	float: left;
 }
 .split {
-	height: 100%;
+	height: auto;
 	width: 31%;
-	position:fixed;
+	position: fixed;
 	z-index:1;
 	overflow-x: hidden;
 }
@@ -194,14 +194,15 @@ tr:hover{
 	display: flex;
 	flex-direction:column;
 	align-items: center;
+	position: relative;
 	padding: 20px;
 	background-color: white;
 	margin-top:20px;
 	margin-bottom:0%;
 	margin-left: 0%;
-	margin-right: 5%;
+	margin-right: 4%;
 	border-radius: 20px;
-	height:480px;
+	height:auto;
 	width:auto;
 	border: 1.5px dashed rgba(255, 99, 71, 0.8);
 }

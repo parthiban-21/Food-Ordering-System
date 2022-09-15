@@ -68,21 +68,29 @@ public class MainController {
 	String menuDetails = "menuDetails";
 	
 	//Login or Sign-In
-	@GetMapping("/signIn")
+	@PostMapping("/signIn")
 	public String login(@RequestParam("emailID") String mailID,@RequestParam("password") String password,Model model) {
 		signInDTO.setUserMailID(mailID);
 		signInDTO.setPassword(password);
 		
 		//Admin Login
 		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPassword())) {
-			return adminHome;
+			menuInfo = adminDAO.getAllMenuDetails();
+			model.addAttribute(menuDetails,menuInfo);
+			return "adminPanel.jsp";
 		}
 		else {
 			//User Login
 			if(userDAO.checkLogin(mailID, password)) {
 				userInfo = userDAO.getUserDetails(mailID, password);
 				model.addAttribute("userDetails",userInfo);
-				return userHome;
+				menuInfo = userDAO.getMenuDetails();
+				model.addAttribute(menuDetails,menuInfo);
+				cartInfo = userDAO.getCart(userInfo.get(0).getId());
+				model.addAttribute("cartDetails", cartInfo);
+				int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
+				model.addAttribute("userPincode", pincode);
+				return "userPanel.jsp";
 			}
 			else {
 				model.addAttribute(errorMessage, "Invalied Login");
@@ -92,16 +100,22 @@ public class MainController {
 	}
 	
 	//Admin Home
-	@GetMapping("/admin")
+	@PostMapping("/admin")
 	public String admin(Model model) {
-		menuInfo = adminDAO.getAllMenuDetails();
-		model.addAttribute(menuDetails,menuInfo);
-		return "adminPanel.jsp";
+		try {
+			menuInfo = adminDAO.getAllMenuDetails();
+			model.addAttribute(menuDetails,menuInfo);
+			return "adminPanel.jsp";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//User Home
 	@GetMapping("/user")
 	public String user(Model model) {
+		try {
 		userInfo = userDAO.getUserDetails(userInfo.get(0).getMailID(), userInfo.get(0).getPassword());
 		model.addAttribute("userDetails",userInfo);
 		menuInfo = userDAO.getMenuDetails();
@@ -111,16 +125,25 @@ public class MainController {
 		int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
 		model.addAttribute("userPincode", pincode);
 		return "userPanel.jsp";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Search Item
 	@GetMapping("/searchItem")
 	public String searchItem(@RequestParam("itemName") String itemName,Model model) {
-		menuInfo = userDAO.getMenuDetails(itemName);
-		model.addAttribute(menuDetails,menuInfo);
-		cartInfo = userDAO.getCart(userInfo.get(0).getId());
-		model.addAttribute("cartDetails", cartInfo);
-		return "userPanel.jsp";
+		try {
+			menuInfo = userDAO.getMenuDetails(itemName);
+			model.addAttribute(menuDetails,menuInfo);
+			cartInfo = userDAO.getCart(userInfo.get(0).getId());
+			model.addAttribute("cartDetails", cartInfo);
+			return "userPanel.jsp";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Logout
@@ -220,28 +243,43 @@ public class MainController {
 	//Confirms Items in CART
 	@GetMapping("/confirmOrder")
 	public String confirmOrder(@RequestParam("orderType") String orderType,Model model) {
-		int userID=userInfo.get(0).getId();
-		userDAO.confirmOrder(userID,orderType);
-		return "/orders";
+		try {
+			int userID=userInfo.get(0).getId();
+			userDAO.confirmOrder(userID,orderType);
+			return "/orders";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Increase Quantity in CART
 	@GetMapping("/incQuantity")
 	public String incQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity) {
-		int userID=userInfo.get(0).getId();
-		userDAO.incQuantity(userID,itemID,itemQuantity);
-		return userHome;
+		try {
+			int userID=userInfo.get(0).getId();
+			userDAO.incQuantity(userID,itemID,itemQuantity);
+			return userHome;
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Decrease Quantity in CART
 	@GetMapping("/decQuantity")
 	public String decQuantity(@RequestParam("itemID") int itemID,@RequestParam("itemQuantity") int itemQuantity,Model model) {
-		int userID=userInfo.get(0).getId();
-		if(userValidation.checkItemQuantity(userID, itemID,itemQuantity))
-			userDAO.decQuantity(userID,itemID,itemQuantity);
-		else
-			model.addAttribute(errorMessage, "Item Cannot be Less than 1");
-		return userHome;
+		try {
+			int userID=userInfo.get(0).getId();
+			if(userValidation.checkItemQuantity(userID, itemID,itemQuantity))
+				userDAO.decQuantity(userID,itemID,itemQuantity);
+			else
+				model.addAttribute(errorMessage, "Item Cannot be Less than 1");
+			return userHome;
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Add item to CART
@@ -271,24 +309,24 @@ public class MainController {
 	
 	@GetMapping("/orders")
 	public String getUserOrders(Model model){
-		int userID=userInfo.get(0).getId();
-		List<Orders> orderInfo = userDAO.getUserOrders(userID);
-		model.addAttribute("orderDetails",orderInfo);
-		List<Orders> completedOrders = userDAO.getCompletedOrders(userID);
-		model.addAttribute("completedOrderDetails", completedOrders);
-		return "userOrders.jsp";
+		try {
+			int userID=userInfo.get(0).getId();
+			List<Orders> orderInfo = userDAO.getUserOrders(userID);
+			model.addAttribute("orderDetails",orderInfo);
+			List<Orders> completedOrders = userDAO.getCompletedOrders(userID);
+			model.addAttribute("completedOrderDetails", completedOrders);
+			return "userOrders.jsp";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	@GetMapping("/orderItems")
 	public String getOrderItemDetail(@RequestParam("orderID") String orderID,@RequestParam("orderType") String orderType,Model model) {
 		List<Cart> orderItems = userDAO.getOrderItemDetails(orderID);
 		model.addAttribute("orderItemDetails", orderItems);
-		if(orderType.equals("delivery")) {
-			model.addAttribute("orderType", orderType);
-		}
-		else {
-			model.addAttribute("orderType", orderType);
-		}
+		model.addAttribute("orderType", orderType);
 		return "/orders";
 	}
 	
@@ -300,11 +338,16 @@ public class MainController {
 	
 	@GetMapping("/adminOrders")
 	public String getOrdersDetails(Model model) {
+		try {
 		List<Orders> orderInfo = adminDAO.getOrders();
 		model.addAttribute("adminOrderDetails", orderInfo);
 		List<Orders> completeOrders = adminDAO.getCompletedOrders();
 		model.addAttribute("completedOrderDetails", completeOrders);
 		return "orders.jsp";
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//Admin
@@ -312,12 +355,7 @@ public class MainController {
 	public String getUserOrderItemDetail(@RequestParam("orderID") String orderID,@RequestParam("orderType") String orderType,Model model) {
 		List<Cart> orderItems = adminDAO.getOrderItemDetails(orderID);
 		model.addAttribute("userOrderItemDetails", orderItems);
-		if(orderType.equals("delivery")) {
-			model.addAttribute("orderType", orderType);
-		}
-		else {
-			model.addAttribute("orderType", orderType);
-		}
+		model.addAttribute("orderType", orderType);
 		return "/adminOrders";
 	}
 	

@@ -16,7 +16,7 @@
 	<label>Foody | Hello, ${userName}</label>
 	<div class="header-right">
 	<a href="/user">Home</a>
-	<a class="active" href="userOrders.jsp">Order</a>
+	<a class="active" href="/orders">Order</a>
 	<a href="userProfile.jsp">Profile</a>
 	<a href="/logout">Logout</a>
 	</div>
@@ -47,8 +47,8 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="3">Total Price</td>
-			<td><strong>&#8377; ${grandTotal+charge}</strong></td>
+			<td colspan="2">Total Price</td>
+			<td colspan="2"><strong>&#8377; ${grandTotal+charge}</strong></td>
 		</tr>
 		<tr>
 			<td colspan="2">Type</td>

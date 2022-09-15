@@ -17,7 +17,7 @@
 	<div class="header-right">
 	<a class="active" href="/admin">Home</a>
 	<a href="/adminOrders">Orders</a>
-	<a href="login.jsp">Logout</a>
+	<a href="/logout">Logout</a>
 	</div>
 </div>
 <div class="split left">
@@ -37,7 +37,7 @@
 								<option value="lunch">Lunch</option>
 								<option value="snacks">Snack</option>
 								<option value="dinner">Dinner</option>
-								<option selected="selected">-- Select Type --</option>
+								<option selected="selected">--${menu.itemType}--</option>
 				</select>
 				<input type="text" name="itemPrice" id="item-input" class="menu-input" value="${menu.itemPrice}">
 				<input type="submit" value = "Update" class="viewBtn">
@@ -47,7 +47,7 @@
 </div>
 <div class="Split right">
 <div class="form">
-<form action="addMenu" method="post" enctype="multipart/form-data">
+<form action="/addMenu" method="post" enctype="multipart/form-data">
 	<label class="formhead">Add Menu</label>
 	
 	<label class="lable">Menu Name:</label>
@@ -65,7 +65,7 @@
 	</select>
 	<div class = upload>
 	<label class="lable">Menu Image:</label>
-	<input type="file" id="file" class="uploadBtn" name="menuImg" >
+	<input type="file" id="file" class="" name="menuImg">
 	<label for="file">Choose a file</label>
 	</div>
 	<div class="formbottom">

@@ -23,8 +23,10 @@
 	<div class="header">
 		<img class="logo" alt="Logo" src="images/logo.png"> <label>Foody | Hello, ${userName}</label>
 		<div class="header-right">
-			<a class="active" href="/user">Home</a> <a href="/orders">Order</a> <a
-				href="userProfile.jsp">Profile</a> <a href="/logout">Logout</a>
+			<a class="active" href="/user">Home</a>
+			<a href="/orders">Order</a> 
+			<a href="userProfile.jsp">Profile</a> 
+			<a href="/logout">Logout</a>
 		</div>
 	</div>
 
@@ -37,10 +39,11 @@
 					<th colspan="3">Quantity</th>
 					<th>Price</th>
 				</tr>
+				<c:set var="grandTotal" value="${0}"/>
 				<c:forEach var="cart" items="${cartDetails}">
-					<c:set var="total" value="${0}" />
-					<c:set var="temp" value="${cart.totalPrice}" />
-					<c:set var="grandTotal" value="${temp+grandTotal+total}" />
+					<c:set var="temp" value="${cart.totalPrice}"/>
+					<c:set var="total" value="${total+temp}"/>
+					<c:set var="grandTotal" value="${total}"/>
 					<tr>
 						<td>${cart.itemName}</td>
 						<td><a
@@ -59,8 +62,10 @@
 			<br> <label class="total">Total Price : &#8377;
 				${grandTotal} /-</label>
 		</div>
-		<button class="confirmBtn" id="myBtn">Proceed</button>
-		<a href="/dropAll?userID=${id}"><button class="cancelBtn">Cancel</button></a>
+		<div class="formbottom">
+			<button class="confirmBtn" id="myBtn" onclick="buttonAction(${grandTotal});">Proceed</button>
+			<a href="/dropAll?userID=${id}"><button class="cancelBtn">Cancel</button></a>
+		</div>
 	</div>
 
 	<!-- The Modal -->
