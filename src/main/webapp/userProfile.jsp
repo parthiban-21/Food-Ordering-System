@@ -69,9 +69,9 @@
 	<input type="password" name="password" id="edit-password" class="input" placeholder="Confirm Password" disabled="disabled" required><br>
 	<div class="formbottom">
 	<input type="submit" id="edit-submit" class="button" value="Update Info" disabled="disabled">
+	<a class="edit-button" onclick="myFunction();">&#9998; Edit</a>
 	</div>
 	</form>
-	<div class="formbottom"><button class="button" onclick="myFunction();">Edit</button></div>
 </div>
 </div>
 <script src="./script/UserJavaScript.js"></script>

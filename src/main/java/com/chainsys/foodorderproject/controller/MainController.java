@@ -2,7 +2,6 @@ package com.chainsys.foodorderproject.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -84,7 +83,7 @@ public class MainController {
 		signInDTO.setPassword(password);
 		
 		//Admin Login
-		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPassword())) {
+		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPwd())) {
 			menuInfo = adminDAO.getAllMenuDetails();
 			model.addAttribute(menuDetails,menuInfo);
 			return adminPanel;

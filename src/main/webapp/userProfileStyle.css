@@ -173,8 +173,18 @@ tr:hover{
 }
 .formbottom{
 	display: flex;
-	flex-direction:column;
+	flex-direction: row;
 	align-items: center;
+	justify-content: center;
+}
+.edit-button{
+	cursor: pointer;
+	padding: 5px;
+	border: 2.5px solid;
+	border-radius: 5px;
+	width: auto;
+	font-size: 15px;
+	font-family: monospace;
 }
 .total{
 	display: flex;

@@ -12,7 +12,7 @@ public class User {
 	private String password;
 	
 	private static final String ADMINID = "admin@gmail.com";
-	private static final String ADMINPASSWORD = "Admin@123";
+	private static final String ADMINPWD = "Admin@123";
 	
 	public int getId() {
 		return id;
@@ -53,13 +53,13 @@ public class User {
 	public String getAdminMailID() {
 		return ADMINID;
 	}
-	public String getAdminPassword() {
-		return ADMINPASSWORD;
+	public String getAdminPwd() {
+		return ADMINPWD;
 	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", mailID=" + mailID + ", phoneNumber=" + phoneNumber
 				+ ", address=" + address + ", password=" + password + ", adminMailID=" + ADMINID
-				+ ", adminPassword=" + ADMINPASSWORD + "]";
+				+ ", adminPassword=" + ADMINPWD + "]";
 	}
 }
