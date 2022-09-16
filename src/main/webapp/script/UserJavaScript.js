@@ -10,11 +10,7 @@ function showPassword() {
 
 //Display User Address
 function showAddress(divId, element,pincode) {
-
-//const pincode=document.getElementById('pincode').value;
-
 	
-	//document.getElementById(divId).style.display = element.value == 'delivery' ? 'block' : 'none';
 	let delivery = document.getElementById(divId);
 	let pickup = document.getElementById('pickup-total');
 	let y = document.getElementById('addressError');

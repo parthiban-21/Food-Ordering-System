@@ -1,8 +1,11 @@
 package com.chainsys.foodorderproject.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +58,9 @@ public class MainController {
 	@Autowired
 	UserValidation userValidation;
 	
+	@Autowired
+	ServletContext context;
+	
 	List<User> userInfo;
 	List<Menu> menuInfo;
 	List<Cart> cartInfo;
@@ -62,10 +68,14 @@ public class MainController {
 	//Redirection
 	String adminHome = "/admin";
 	String userHome = "/user";
+	String userOrders = "/orders";
 	String loginPage = "login.jsp";
+	String adminPanel = "adminPanel.jsp";
+	String userPanel = "userPanel.jsp";
 	
 	String errorMessage = "errMsg";
 	String menuDetails = "menuDetails";
+	String cartDetails = "cartDetails";
 	
 	//Login or Sign-In
 	@PostMapping("/signIn")
@@ -77,7 +87,7 @@ public class MainController {
 		if(signInDTO.getUserMailID().equals(user.getAdminMailID()) && signInDTO.getPassword().equals(user.getAdminPassword())) {
 			menuInfo = adminDAO.getAllMenuDetails();
 			model.addAttribute(menuDetails,menuInfo);
-			return "adminPanel.jsp";
+			return adminPanel;
 		}
 		else {
 			//User Login
@@ -87,10 +97,10 @@ public class MainController {
 				menuInfo = userDAO.getMenuDetails();
 				model.addAttribute(menuDetails,menuInfo);
 				cartInfo = userDAO.getCart(userInfo.get(0).getId());
-				model.addAttribute("cartDetails", cartInfo);
+				model.addAttribute(cartDetails, cartInfo);
 				int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
 				model.addAttribute("userPincode", pincode);
-				return "userPanel.jsp";
+				return userPanel;
 			}
 			else {
 				model.addAttribute(errorMessage, "Invalied Login");
@@ -100,12 +110,12 @@ public class MainController {
 	}
 	
 	//Admin Home
-	@PostMapping("/admin")
+	@GetMapping("/admin")
 	public String admin(Model model) {
 		try {
 			menuInfo = adminDAO.getAllMenuDetails();
 			model.addAttribute(menuDetails,menuInfo);
-			return "adminPanel.jsp";
+			return adminPanel;
 		}
 		catch (Exception e) {
 			return loginPage;
@@ -121,10 +131,10 @@ public class MainController {
 		menuInfo = userDAO.getMenuDetails();
 		model.addAttribute(menuDetails,menuInfo);
 		cartInfo = userDAO.getCart(userInfo.get(0).getId());
-		model.addAttribute("cartDetails", cartInfo);
+		model.addAttribute(cartDetails, cartInfo);
 		int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
 		model.addAttribute("userPincode", pincode);
-		return "userPanel.jsp";
+		return userPanel;
 		}
 		catch (Exception e) {
 			return loginPage;
@@ -138,8 +148,8 @@ public class MainController {
 			menuInfo = userDAO.getMenuDetails(itemName);
 			model.addAttribute(menuDetails,menuInfo);
 			cartInfo = userDAO.getCart(userInfo.get(0).getId());
-			model.addAttribute("cartDetails", cartInfo);
-			return "userPanel.jsp";
+			model.addAttribute(cartDetails, cartInfo);
+			return userPanel;
 		}
 		catch (Exception e) {
 			return loginPage;
@@ -209,18 +219,30 @@ public class MainController {
 	
 	//Add Item - Admin
 	@PostMapping("/addMenu")
-	public String addMenu(@RequestParam("menuName") String name,@RequestParam("menuType") String type,@RequestParam("menuPrice") float price, @RequestParam("menuImg") MultipartFile img,Model model) throws IOException {
-		menuDTO.setMenuName(name);
-		menuDTO.setMenuType(type);
-		menuDTO.setMenuPrice(price);
-		
-		String path = "C:\\Users\\part3269\\Documents\\foodorderproject\\foodorderproject\\src\\main\\webapp\\images\\";
-        String filename = img.getOriginalFilename();
-        FileInputStream fin = new FileInputStream(path+filename);
-        byte[] images = fin.readAllBytes();
-        menuDTO.setMenuImg(images);
-        mainService.menuService(menuDTO);
-		return adminHome;
+	public String addMenu(@RequestParam("menuName") String name,@RequestParam("menuType") String type,@RequestParam("menuPrice") float price, @RequestParam("menuImg") MultipartFile img,Model model) {
+		try {
+			menuDTO.setMenuName(name);
+			menuDTO.setMenuType(type);
+			menuDTO.setMenuPrice(price);
+			
+			String applicationPath = context.getRealPath("");
+			String rpath = applicationPath + File.separator + "images"+ File.separator;
+	        String filename = img.getOriginalFilename();
+	        FileInputStream fin = new FileInputStream(rpath+filename);
+	        byte[] images = fin.readAllBytes();
+	        menuDTO.setMenuImg(images);
+	        mainService.menuService(menuDTO);
+	        
+	        menuInfo = adminDAO.getAllMenuDetails();
+			model.addAttribute(menuDetails,menuInfo);
+			return adminPanel;
+		}
+		catch (Exception e) {
+			model.addAttribute("fileError","File Not Found");
+			menuInfo = adminDAO.getAllMenuDetails();
+			model.addAttribute(menuDetails,menuInfo);
+			return adminPanel;
+		}
 	}
 	
 	//Edit Item
@@ -237,7 +259,7 @@ public class MainController {
 	@GetMapping("/delete")
 	public String deleteMenu(@RequestParam("id") int itemID) {
 		adminDAO.deleteItem(itemID);
-		return "adminPanel.jsp";
+		return adminPanel;
 	}
 	
 	//Confirms Items in CART
@@ -246,7 +268,7 @@ public class MainController {
 		try {
 			int userID=userInfo.get(0).getId();
 			userDAO.confirmOrder(userID,orderType);
-			return "/orders";
+			return userOrders;
 		}
 		catch (Exception e) {
 			return loginPage;
@@ -327,13 +349,13 @@ public class MainController {
 		List<Cart> orderItems = userDAO.getOrderItemDetails(orderID);
 		model.addAttribute("orderItemDetails", orderItems);
 		model.addAttribute("orderType", orderType);
-		return "/orders";
+		return userOrders;
 	}
 	
 	@GetMapping("/cancelOrder")
 	public String cancelOrder(@RequestParam("orderID") String orderID) {
 		userDAO.cancelOrder(orderID);
-		return "/orders";
+		return userOrders;
 	}
 	
 	@GetMapping("/adminOrders")

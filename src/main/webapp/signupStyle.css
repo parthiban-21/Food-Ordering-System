@@ -148,3 +148,7 @@ a:hover{
 .button:hover{
 	background-color: rgba(255, 100, 71, 0.7);
 }
+.show-password{
+	font-family: monospace;
+	font-size: 16px;
+}

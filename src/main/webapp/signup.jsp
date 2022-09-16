@@ -32,9 +32,9 @@
 		<input type="email" name="emailID" class="input" placeholder="Enter Your Email-ID" required><br>
 		
 		<label class="lable">Password</label>
-		<input type="password" name="password" class="input" placeholder="Set Password" 
+		<input type="password" name="password" class="input" id = "show-Password" placeholder="Set Password" 
 		pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Invalied Password" required><br>
-		
+		<input type="checkbox" onclick="showPassword();"><label class="show-password">Show Password</label>
 		<div class="formbottom">
 			<input type="submit" class="button" value="Create Account">
 			<label class="opac">If you already have account <a href="login.jsp">Login</a></label>
@@ -51,5 +51,6 @@
 		<p class="desc">Everything Begins here...</p>
 	</div>
 </div>
+<script src="./script/UserJavaScript.js"></script>
 </body>
 </html>

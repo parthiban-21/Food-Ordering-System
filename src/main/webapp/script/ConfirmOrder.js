@@ -7,11 +7,6 @@ let span = document.getElementsByClassName("close")[0];
 
 let pickup = document.getElementById('pickup-total');
 
-/* btn.onclick = function() {
-	modal.style.display = "block";
-	pickup.style.display = 'block';
-}*/
-
 function buttonAction(price){
 	if(price!=0){
 		modal.style.display = "block";

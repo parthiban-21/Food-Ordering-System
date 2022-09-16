@@ -1,6 +1,6 @@
-@charset "ISO-8859-1";
 body{
 	background-color: rgba(255, 255, 147, 0.5);
+
 }
 a{
 	color: rgba(0, 0, 0, .9);
@@ -35,9 +35,11 @@ td{
 	font-size: 17px;
 }
 
-select{
+.form select{
 	padding: 0.5rem;
 	margin-top: 5px;
+	margin-left: 15px;
+	margin-bottom: 15px;
 	width: 350px;
 	height:40px;
 	font-size: 15px;
@@ -81,7 +83,7 @@ select{
 }
 .split {
 	height: 100%;
-	width: 70%;
+	width: 30%;
 	position:fixed;
 	z-index: 1;
 	overflow-x: hidden;
@@ -156,20 +158,21 @@ select{
 	padding: 1%;
 	margin-top:20px;
 	margin-bottom:0%;
-	margin-left: 1%;
-	margin-right: 5%;
+	margin-left: 30%;
+	margin-right: 0%;
 	background-color: white;
 	border: 1.5px dashed rgba(255, 99, 71, 0.8);
 	border-radius: 20px;
-	height:auto;
 	width:auto;
+	height: auto; 
 }
+
 .form{
 	padding: 1%;
 	background-color: white;
 	margin-top:20px;
 	margin-bottom:0%;
-	margin-left: 70%;
+	margin-left: 1%;
 	margin-right: 1%;
 	border-radius: 20px;
 	height:auto;
@@ -192,6 +195,7 @@ select{
 }
 .lable {
 	font-size: 16px;
+	margin-left: 15px;
 	padding: 10px;
 	font-family:monospace;
 }
@@ -206,6 +210,7 @@ select{
 	flex-direction:column;
 	padding: 0.6rem;
 	margin-top: 5px;
+	margin-left: 15px;
 	border: 2px solid #c0c0c0;
 	border-radius: 5px;
 	width: 325px;
@@ -217,13 +222,14 @@ select{
 	justify-content: center;
 }
 .uploadBtn{
-	width: 0px;
-	height: 0px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-	display: none;
+	width: 325px;
+	height: auto;
+	padding: 10px;
+	display: block;
+	margin-top: 5px;
+	margin-left: 15px;
+	border: 2px solid #c0c0c0;
+	border-radius: 5px;
 }
 
 .uploadBtn + label {
@@ -235,7 +241,7 @@ select{
 	padding: 6px;
 	border: 2px solid #c0c0c0;
 	border-radius: 5px;
-	display: block;
+	display: none;
 	
 }
 

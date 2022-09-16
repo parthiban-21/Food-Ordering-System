@@ -47,6 +47,10 @@
 			</tr>
 		</c:forEach>
 		<tr>
+			<td colspan="2">Charges</td>
+			<td colspan="2"><strong>&#8377; ${charge}</strong></td>
+		</tr>
+		<tr>
 			<td colspan="2">Total Price</td>
 			<td colspan="2"><strong>&#8377; ${grandTotal+charge}</strong></td>
 		</tr>
@@ -84,7 +88,7 @@
 	<div class="completed-orders">
 		<label>OrderID: ${completeOrders.orderID}</label>
 		<label>OrderDate: ${completeOrders.orderDate}</label>
-		<label class="completed">${completeOrders.orderStatus}</label>
+		<label class="completed"><strong> ${completeOrders.orderStatus} </strong></label>
 		<a href="/orderItems?orderID=${completeOrders.orderID}&orderType=${completeOrders.orderType}"><button class="viewBtn">View Order</button></a>
 	</div>
 	</c:forEach>

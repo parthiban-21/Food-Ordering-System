@@ -12,6 +12,7 @@ public class OrderItemMapper implements RowMapper<Cart> {
 	@Override
 	public Cart mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Cart cart = new Cart();
+		cart.setOrderID(rs.getString("ORDER_ID"));
 		cart.setItemName(rs.getString("ITEM_NAME"));
 		cart.setUnitPrice(rs.getFloat("ITEM_PRICE"));
 		cart.setQuantity(rs.getInt("QUANTITY"));

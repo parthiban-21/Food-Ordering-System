@@ -54,7 +54,7 @@ public class AdminDAO {
 	
 	//Get Orders - Completed
 	public List<Orders> getCompletedOrders() {
-		String getOrdersQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where ORDER_STATUS='Completed'";
+		String getOrdersQuery = "select ORDER_ID,CUSTOMER_ID,ORDER_DATE,TOTAL_PRICE,ORDER_STATUS,ORDER_TYPE from ORDERS where ORDER_STATUS='Completed' or ORDER_STATUS='Cancelled' order by ORDER_DATE desc";
 		return jdbcTemplate.query(getOrdersQuery,new OrderMapper());
 	}
 	
