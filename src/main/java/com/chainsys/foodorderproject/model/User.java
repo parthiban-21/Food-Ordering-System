@@ -14,7 +14,7 @@ public class User {
 	private static final String ADMINID = "admin@gmail.com";
 	private static final String ADMINPWD = "Admin@123";
 	
-	public int getId() {
+	public int getId(){
 		return id;
 	}
 	public void setId(int id) {
