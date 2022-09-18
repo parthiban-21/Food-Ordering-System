@@ -57,8 +57,8 @@ function myFunction() {
 		let submit = document.getElementById("edit-submit");
 		if (submit.disabled === true) {
 			name.disabled = false;
-			phoneNumber.disabled = false;
 			address.disabled = false;
+			phoneNumber.disabled = false;
 			password.disabled = false;
 			submit.disabled = false;
 		}

@@ -59,7 +59,7 @@
 	
 	<label class="lable">Mobile Number</label>
 	<input type="text" name="mobileno" id="edit-phoneNumber" class="input" placeholder="Enter New Mobile Number" value="${mobileNo}"
-	pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" disabled="disabled" required><br>
+	pattern="^(0/91)?[7-9][0-9]{9}$" title="Invalied Mobile Number" disabled="disabled" required readonly="readonly"><br>
 	
 	<label class="lable">Address</label>
 	<input type="text" name="address" id="edit-addresss" class="input" placeholder="Enter New Address" value="${address}"

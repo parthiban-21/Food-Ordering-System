@@ -80,6 +80,7 @@ public class UserDAO {
 	public List<Menu> getMenuDetails(String itemName){
 		String getMenuQuery = "select ITEM_ID,ITEM_NAME,ITEM_TYPE,ITEM_PRICE,ITEM_IMG from MENU where ITEM_NAME=? and (ITEM_TYPE=? or ITEM_TYPE='snacks')";
 		String time = getTime();
+		itemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
 		Object[] values = {itemName,time};
 		return jdbcTemplate.query(getMenuQuery,new MenuMapper(),values);
 	}

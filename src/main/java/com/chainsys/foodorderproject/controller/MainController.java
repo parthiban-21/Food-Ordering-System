@@ -158,9 +158,14 @@ public class MainController {
 	//Logout
 	@GetMapping("/logout")
 	public String logout() {
-		signInDTO.setUserMailID(null);
-		signInDTO.setPassword(null);
+		try {
+		userInfo.get(0).setMailID(null);
+		userInfo.get(0).setPassword(null);
 		return loginPage;
+		}
+		catch (Exception e) {
+			return loginPage;
+		}
 	}
 	
 	//User Sign-Up
@@ -194,11 +199,12 @@ public class MainController {
 	
 	//Update User Info
 	@GetMapping("/updateInfo")
-	public String updateInfo(@RequestParam("name") String name,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password) {
+	public String updateInfo(@RequestParam("name") String name,@RequestParam("mobileno") String phoneNo,@RequestParam("address") String address,@RequestParam("password") String password,Model model) {
 		mainDTO.setUserName(name);
 		mainDTO.setUserPhoneNo(phoneNo);
 		mainDTO.setUserAddress(address);
 		mainDTO.setUserPassword(password);
+		mainDTO.setUserPhoneNo(phoneNo);
 		mainService.updateService(userInfo,mainDTO);
 		return userHome;
 	}
