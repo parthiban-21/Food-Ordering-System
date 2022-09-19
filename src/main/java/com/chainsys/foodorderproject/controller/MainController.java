@@ -20,7 +20,9 @@ import com.chainsys.foodorderproject.dto.MainDTO;
 import com.chainsys.foodorderproject.dto.MenuDTO;
 import com.chainsys.foodorderproject.dto.SignInDTO;
 import com.chainsys.foodorderproject.dto.SignUpDTO;
+import com.chainsys.foodorderproject.exception.ItemInCartException;
 import com.chainsys.foodorderproject.exception.ItemNotFoundException;
+import com.chainsys.foodorderproject.exception.OrderIDNotFoundException;
 import com.chainsys.foodorderproject.model.Cart;
 import com.chainsys.foodorderproject.model.Menu;
 import com.chainsys.foodorderproject.model.Orders;
@@ -315,7 +317,7 @@ public class MainController {
 	
 	//Add item to CART
 	@GetMapping("/addToCart")
-	public String addToCart(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID,Model model) {
+	public String addToCart(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID,Model model) throws ItemInCartException {
 		if(userValidation.isItemInCart(itemID, userID))
 			userDAO.addToCart(userID, itemID);
 		else
@@ -332,7 +334,7 @@ public class MainController {
 	
 	//Drop Item from Cart
 	@GetMapping("/dropItem")
-	public String dropItem(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID) {
+	public String dropItem(@RequestParam("userID") int userID,@RequestParam("itemID") int itemID) throws ItemNotFoundException {
 		userDAO.dropItem(userID, itemID);
 		return userHome;
 	}
@@ -362,7 +364,7 @@ public class MainController {
 	}
 	
 	@GetMapping("/cancelOrder")
-	public String cancelOrder(@RequestParam("orderID") String orderID) {
+	public String cancelOrder(@RequestParam("orderID") String orderID) throws OrderIDNotFoundException {
 		userDAO.cancelOrder(orderID);
 		return userOrders;
 	}
@@ -370,11 +372,11 @@ public class MainController {
 	@GetMapping("/adminOrders")
 	public String getOrdersDetails(Model model) {
 		try {
-		List<Orders> orderInfo = adminDAO.getOrders();
-		model.addAttribute("adminOrderDetails", orderInfo);
-		List<Orders> completeOrders = adminDAO.getCompletedOrders();
-		model.addAttribute("completedOrderDetails", completeOrders);
-		return "orders.jsp";
+			List<Orders> orderInfo = adminDAO.getOrders();
+			model.addAttribute("adminOrderDetails", orderInfo);
+			List<Orders> completeOrders = adminDAO.getCompletedOrders();
+			model.addAttribute("completedOrderDetails", completeOrders);
+			return "orders.jsp";
 		}
 		catch (Exception e) {
 			return loginPage;
