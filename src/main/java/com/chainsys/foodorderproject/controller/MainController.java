@@ -20,6 +20,7 @@ import com.chainsys.foodorderproject.dto.MainDTO;
 import com.chainsys.foodorderproject.dto.MenuDTO;
 import com.chainsys.foodorderproject.dto.SignInDTO;
 import com.chainsys.foodorderproject.dto.SignUpDTO;
+import com.chainsys.foodorderproject.exception.ItemNotFoundException;
 import com.chainsys.foodorderproject.model.Cart;
 import com.chainsys.foodorderproject.model.Menu;
 import com.chainsys.foodorderproject.model.Orders;
@@ -102,7 +103,7 @@ public class MainController {
 				return userPanel;
 			}
 			else {
-				model.addAttribute(errorMessage, "Invalied Login");
+				model.addAttribute(errorMessage, "Invalid Login");
 				return loginPage;
 			}
 		}
@@ -125,15 +126,15 @@ public class MainController {
 	@GetMapping("/user")
 	public String user(Model model) {
 		try {
-		userInfo = userDAO.getUserDetails(userInfo.get(0).getMailID(), userInfo.get(0).getPassword());
-		model.addAttribute("userDetails",userInfo);
-		menuInfo = userDAO.getMenuDetails();
-		model.addAttribute(menuDetails,menuInfo);
-		cartInfo = userDAO.getCart(userInfo.get(0).getId());
-		model.addAttribute(cartDetails, cartInfo);
-		int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
-		model.addAttribute("userPincode", pincode);
-		return userPanel;
+			userInfo = userDAO.getUserDetails(userInfo.get(0).getMailID(), userInfo.get(0).getPassword());
+			model.addAttribute("userDetails",userInfo);
+			menuInfo = userDAO.getMenuDetails();
+			model.addAttribute(menuDetails,menuInfo);
+			cartInfo = userDAO.getCart(userInfo.get(0).getId());
+			model.addAttribute(cartDetails, cartInfo);
+			int pincode = userDAO.extractPincode(userInfo.get(0).getAddress());
+			model.addAttribute("userPincode", pincode);
+			return userPanel;
 		}
 		catch (Exception e) {
 			return loginPage;
@@ -142,8 +143,11 @@ public class MainController {
 	
 	//Search Item
 	@GetMapping("/searchItem")
-	public String searchItem(@RequestParam("itemName") String itemName,Model model) {
+	public String searchItem(@RequestParam("itemName") String itemName, Model model) {
 		try {
+			if(itemName.isEmpty()) {
+				throw new ItemNotFoundException();
+			}
 			menuInfo = userDAO.getMenuDetails(itemName);
 			model.addAttribute(menuDetails,menuInfo);
 			cartInfo = userDAO.getCart(userInfo.get(0).getId());

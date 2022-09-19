@@ -1,10 +1,10 @@
 //Show and Hide Password
 function showPassword() {
-	let x = document.getElementById("show-Password");
-	if (x.type === "password") {
-		x.type = "text";
+	let password = document.getElementById("show-Password");
+	if (password.type === "password") {
+		password.type = "text";
 	} else {
-		x.type = "password";
+		password.type = "password";
 	}
 }
 
@@ -13,26 +13,26 @@ function showAddress(divId, element,pincode) {
 	
 	let delivery = document.getElementById(divId);
 	let pickup = document.getElementById('pickup-total');
-	let y = document.getElementById('addressError');
-	let z = document.getElementById('confirmOrder');
+	let error = document.getElementById('addressError');
+	let confirm = document.getElementById('confirmOrder');
 	if(element.value === 'delivery'){
 		if(checkPincode(pincode)){
 			delivery.style.display = 'block';
 			pickup.style.display = 'none';
-			y.style.display = 'none';
+			error.style.display = 'none';
 		}
 		else{
 			delivery.style.display = 'block';
 			pickup.style.display = 'none';
-			y.style.display = 'block';
-			z.disabled = true;
+			error.style.display = 'block';
+			confirm.disabled = true;
 		}
 	}
 	else{
 		delivery.style.display = 'none';
 		pickup.style.display = 'block';
-		y.style.display = 'none';
-		z.disabled = false;
+		error.style.display = 'none';
+		confirm.disabled = false;
 	}
 }
 

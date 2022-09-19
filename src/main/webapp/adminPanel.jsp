@@ -65,6 +65,7 @@
 							<option value="lunch">Lunch</option>
 							<option value="snacks">Snack</option>
 							<option value="dinner">Dinner</option>
+							<option value="none">None</option>
 							<option selected="selected">--${menu.itemType}--</option>
 						</select> <input type="text" name="itemPrice" id="item-input"
 							class="menu-input" value="${menu.itemPrice}"> <input
