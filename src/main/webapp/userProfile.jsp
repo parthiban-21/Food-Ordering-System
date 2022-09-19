@@ -18,6 +18,7 @@
 	<a href="/user">Home</a>
 	<a href="/orders">Order</a>
 	<a class="active" href="userProfile.jsp">Profile</a>
+	<a href="contact.jsp">Contact Us</a>
 	<a href="/logout">Logout</a>
 	</div>
 </div>
