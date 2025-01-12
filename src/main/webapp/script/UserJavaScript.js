@@ -75,4 +75,4 @@ function showOrderItem() {
 		x.style.display = "none";
 		y.style.width = "96.6%";
 	}
-} 
+}  
